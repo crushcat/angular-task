@@ -1,0 +1,38 @@
+@import '../../../../assets/scss/common';
+
+.container {
+    width: 1000px;
+    margin-top: 25px;
+    @include flexbox(row, space-between, center);
+}
+
+.form {
+    width: 300px;
+    @include flexbox(row, space-between, center); 
+}
+
+.input {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px 15px;
+
+    &:focus {
+        border-color: $button-color-danger;
+    }
+}
+
+.btn {
+    @extend %button-style; 
+    color: white;
+    color: white;
+
+    &-search {
+        background-color: $button-color-danger;
+        
+    }
+
+    &-add {
+        background-color: $button-color-add;
+        
+    }
+}

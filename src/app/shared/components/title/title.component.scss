@@ -1,0 +1,6 @@
+@import '../../../../assets/scss/common';
+
+.title {
+    width: 1000px;
+    @include flexbox(row, flex-start, center);
+}

@@ -1,0 +1,52 @@
+@import '../../../../assets/scss/common';
+
+.item {
+    @include flexbox(row, space-between, center);
+    width: 1000px;
+    height: 0px;
+    min-height: 90px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 1px solid darken($header-color, 10%);
+    background-color: rgba($header-color, .5);
+
+    .info {
+        width: 80%;
+        margin-left: 15px; 
+        @include flexbox(column, space-between, center);
+
+        &-caption {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        &-header {
+            width: 100%;
+            @include flexbox(row, space-between, center);  
+
+            &-sign {
+                width: 25%;
+                @include flexbox(row, space-between, center);   
+            }
+        }
+    }
+
+    .dashboard {
+        width: 10%;
+        height: 100%;
+        @include flexbox(column, space-between, center);
+
+        .btn {
+            color: white;
+            @extend %button-style;
+        }
+    }
+}
+
+.btn-edit {
+    background-color: $button-color-caution;
+}
+
+.btn-delete {
+    background-color: $button-color-danger;
+}

@@ -1,0 +1,12 @@
+@import '../../../../assets/scss/common';
+
+.session {
+    @include flexbox(row, space-between, center);
+    width: 200px;
+}
+
+.btn {
+    @extend %button-style;
+    background-color: $button-color-danger;
+    color: white;
+}

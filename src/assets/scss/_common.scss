@@ -1,0 +1,13 @@
+@import 'mixins';
+@import 'variables';
+
+%container-style {
+    @include flexbox(column, center, center);
+}
+
+%button-style {
+    cursor: pointer;
+    width: 80px;
+    height: 30px;
+    border-radius: 8px;
+}
