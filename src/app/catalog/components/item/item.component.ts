@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { ICourse } from '../../interfaces'
 
 @Component({
   selector: 'at-item',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss']
 })
-export class ItemComponent implements OnInit {
+export class ItemComponent {
+  @Input() course: ICourse;
+  @Output() deleteCourseEvent: EventEmitter<number> = new EventEmitter();
 
-  constructor() { }
-
-  ngOnInit() {
+  deleteCourse() {
+    this.deleteCourseEvent.emit(this.course.id);
   }
-
 }

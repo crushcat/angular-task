@@ -2,6 +2,11 @@
     <at-title></at-title>
     <at-toolbox></at-toolbox>
     <div class="container-item">
-        <at-item></at-item>
+        <at-item 
+            *ngFor="let course of courseList"
+            (deleteCourseEvent)="deleteCourse($event)"
+            [course]="course">
+        </at-item>
     </div>
+    <button (click)="loadMore()" class='btn'>Load more</button>
 </main>

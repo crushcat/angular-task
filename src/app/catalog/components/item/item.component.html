@@ -1,16 +1,16 @@
 <div class="item">
   <div class="info">
     <header class="info-header">
-      <h2>fsdfds</h2>
+      <h2>{{course.title}}</h2>
       <div class="info-header-sign">
-        <div class="info-header-sign__duration">100h 60min</div>
-        <div class="info-header-sign__datastamp">10.18.2018</div>
+        <div class="info-header-sign__duration">{{course.duration}}</div>
+        <div class="info-header-sign__datastamp">{{course.creationDate}}</div>
       </div>
     </header>
-    <div class="info-caption">sffsdfsdfsdfsdfsdfsdsdgsdgdsgfsdgsdgdsgsdgsdgsdgsdgsdgsd</div>
+    <div class="info-caption">{{course.description}}</div>
   </div>
   <div class="dashboard">
     <button class="btn btn-edit">Edit</button>
-    <button class="btn btn-delete">Delete</button>
+    <button (click)="deleteCourse()" class="btn btn-delete">Delete</button>
   </div>
 </div>
