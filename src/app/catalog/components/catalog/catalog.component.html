@@ -5,6 +5,7 @@
         <at-item 
             *ngFor="let course of courseList | orderBy:'creationDate'"
             (deleteCourseEvent)="deleteCourse($event)"
+            (editCourseEvent)="editCourse($event)"
             [course]="course"
             [atFresh]="course.creationDate.valueOf()"
         ></at-item>

@@ -41,7 +41,7 @@ export class CoursesService {
   }
 
   createCourse(course: ICourse) {
-    this.courseList = [...this.courseList, course];
+    this.courseList = [...this.courseList, new Course(course)];
   }
 
   getCourseById(id: number) {
@@ -53,7 +53,7 @@ export class CoursesService {
   }
 
   deleteCourse(id: number) {
-    this.courseList = this.courseList.filter((item) => item.id = id);
+    this.courseList = this.courseList.filter((item) => item.id != id);
   }
 
   getCourses() {

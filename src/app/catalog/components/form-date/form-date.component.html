@@ -1,0 +1,6 @@
+<form class="form">
+  <label>
+    <h3>Date:</h3>
+    <input [ngModel]="creationDate | date:'yyyy-MM-dd'" (ngModelChange)="creationDate = $event" type="date" name="creationDate"/>
+  </label>
+</form>

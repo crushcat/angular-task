@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { AppRouterModule } from './router/router.module';
+import { CatalogModule } from './catalog/catalog.module';
 
 @NgModule({
   declarations: [

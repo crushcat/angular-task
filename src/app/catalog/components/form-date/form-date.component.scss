@@ -1,0 +1,17 @@
+@import '../../../../assets/scss/common';
+
+.form {
+
+    label {
+        width: 300px;
+        @include flexbox(column, space-between, flex-start);
+        margin: 20px 0px;
+    }
+
+    input {
+        @extend %input-style;
+        width: 300px;
+        margin-top: 10px;
+    }
+
+}

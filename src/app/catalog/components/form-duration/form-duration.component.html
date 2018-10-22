@@ -1,0 +1,9 @@
+<div class="container">
+  <form class="form">
+    <label>
+      <h3>Duration:</h3>
+      <input [(ngModel)]="duration" type="text" name="duration">
+    </label>
+  </form>
+ <div class="duration">{{ duration | duration }}</div>
+</div>

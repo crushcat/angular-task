@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from '../shared/components/login/login.component';
 import { AuthGuardService } from '../core/services/authGuard/auth-guard.service';
+import { NonContentComponentComponent } from './components/non-content-component/non-content-component.component';
 
 const routes: Routes = [
   {
@@ -17,11 +18,16 @@ const routes: Routes = [
   {
     path: 'auth',
     component: LoginComponent,
+  },
+  {
+    path: '**',
+    component: NonContentComponentComponent
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  declarations: [NonContentComponentComponent]
 })
 export class AppRouterModule { }

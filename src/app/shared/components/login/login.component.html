@@ -2,7 +2,7 @@
   <div class="auth-block">
     <h2 class="title">Auth</h2>
     <div class="line"></div>
-    <form class="form">
+    <form class="form" (submit)="auth()">
       <label>
         Login: *required
         <input type="text" [(ngModel)]="login" name="login" required>
@@ -11,7 +11,7 @@
           Password: *required
           <input type="password" [(ngModel)]="password" name="password" required>
       </label>
-      <button (click)="auth()" class="btn btn-login">Login</button>
+      <button type="submit" class="btn btn-login">Login</button>
     </form>
   </div>
 </div>

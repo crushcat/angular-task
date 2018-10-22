@@ -8,10 +8,12 @@ export class AuthService {
 
   logIn(login: string) {
     localStorage.setItem('token', login);
+    this.router.navigate(['']);
   }
 
   logOut() {
     localStorage.removeItem('token');
+    this.router.navigateByUrl('/auth');
   }
 
   IsAuthenticated() : boolean {

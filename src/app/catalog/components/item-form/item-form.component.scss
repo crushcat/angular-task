@@ -1,0 +1,57 @@
+@import '../../../../assets/scss/common';
+
+.form-container {
+    position: relative;
+    top: 100px;
+    width: 600px;
+    margin: auto;
+    padding: 30px 50px;
+    background-color: $header-color;
+}
+
+.form {
+    width: 100%;
+    height: 100%;
+    @include flexbox(column, space-between, flex-start);
+
+    label {
+        width: 100%;
+        @include flexbox(column, space-between, flex-start);
+        margin: 20px 0px;
+    }
+
+    input {
+        @extend %input-style;
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .date-input {
+        width: 300px;      
+    }
+
+    textarea {
+        margin-top: 10px;
+        max-width: 100%;
+        min-width: 100%;
+        min-height: 50px;
+        max-height: 280px;
+    }
+}
+
+.button-box {
+    width: 220px;
+    margin-top: 10px;
+    @include flexbox(row, space-between, center);
+    .btn {
+        @extend %button-style;
+        color: white;
+        &-save {
+            background-color: $input-color-valid;
+        }
+
+        &-cancel {
+            background-color: $button-color-danger;
+        }
+    }
+}
