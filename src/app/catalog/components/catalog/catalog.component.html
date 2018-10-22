@@ -1,12 +1,14 @@
 <main class="container">
     <at-title></at-title>
-    <at-toolbox></at-toolbox>
-    <div class="container-item">
+    <at-toolbox (searchEventField)="search($event)"></at-toolbox>
+    <div  *ngIf="courseList.length" class="container-item">
         <at-item 
-            *ngFor="let course of courseList"
+            *ngFor="let course of courseList | orderBy:'creationDate'"
             (deleteCourseEvent)="deleteCourse($event)"
-            [course]="course">
-        </at-item>
+            [course]="course"
+            [atFresh]="course.creationDate.valueOf()"
+        ></at-item>
     </div>
+    <div *ngIf="!courseList.length" class="container-error" >No data. Feel free to add new course</div>
     <button (click)="loadMore()" class='btn'>Load more</button>
 </main>

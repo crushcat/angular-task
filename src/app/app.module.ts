@@ -3,16 +3,16 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { CatalogModule } from './catalog/catalog.module';
+import { AppRouterModule } from './router/router.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     CoreModule,
-    CatalogModule
+    AppRouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

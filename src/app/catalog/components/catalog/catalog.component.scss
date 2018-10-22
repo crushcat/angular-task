@@ -10,6 +10,15 @@
         @include flexbox(column, center, center);
         margin: 30px 0 20px;
     }
+
+    &-error {
+        width: 1000px;
+        padding: 10px 15px;
+        border-radius: 10px;
+        margin: 30px 0 20px;
+        background-color: $button-color-danger;
+        color: white;
+    }
 }
 
 .btn {

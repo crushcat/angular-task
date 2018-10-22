@@ -10,3 +10,17 @@
     height: 30px;
     border-radius: 8px;
 }
+
+%input-style {
+    width: 200px;
+    height: 30px;
+    padding: 10px 15px;
+    border: 2px solid $input-color-valid;
+    border-radius: 7px;
+    &:focus {
+        border-color: $button-color-add;
+    }
+    &:invalid {
+        border-color: $button-color-danger;
+    }
+}

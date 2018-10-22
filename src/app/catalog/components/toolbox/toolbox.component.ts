@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'at-toolbox',
@@ -6,9 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./toolbox.component.scss']
 })
 export class ToolboxComponent {
+  @Output() searchEventField: EventEmitter<string> = new EventEmitter();
   searchField: string;
   
-  onClick() {
-    console.log(this.searchField);
+  search() {
+    this.searchEventField.emit(this.searchField);
   }
 }

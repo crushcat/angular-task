@@ -9,7 +9,7 @@ import { ItemComponent } from './item.component';
 const mockCourse: ICourse = new Course({
   id: 0,
   title: 'Webpack',
-  creationDate: Date.now(),
+  creationDate: new Date(),
   duration: 90,
   description: 'fsdfndsfsdionfklsdfklsd'
 });
