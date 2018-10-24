@@ -1,10 +1,10 @@
-<div class="item" [ngClass]="course.topRated? 'top' : null">
+<div class="item" [ngClass]="course.isTopRated? 'top' : null">
   <div class="info">
     <header class="info-header">
-      <h2>{{course?.title | uppercase}} <span *ngIf="course.topRated">☆</span></h2>
+      <h2>{{course?.name | uppercase}} <span *ngIf="course.isTopRated">☆</span></h2>
       <div class="info-header-sign">
-        <div class="info-header-sign__duration">{{course?.duration | duration}}</div>
-        <div class="info-header-sign__datastamp">{{course?.creationDate | date:'dd/MM/yyyy'}}</div>
+        <div class="info-header-sign__duration">{{course?.length | duration}}</div>
+        <div class="info-header-sign__datastamp">{{course?.date | date:'dd/MM/yyyy'}}</div>
       </div>
     </header>
     <div class="info-caption">{{course?.description}}</div>

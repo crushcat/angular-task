@@ -1,8 +1,9 @@
 export interface ICourse {
     id: number,
-    title: string,
-    creationDate: Date,
-    duration: number,
+    name: string,
+    date: Date,
+    length: number,
     description: string,
-    topRated: boolean
+    authors: any,
+    isTopRated: boolean
 }

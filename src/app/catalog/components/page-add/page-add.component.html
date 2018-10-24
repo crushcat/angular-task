@@ -1,1 +1,6 @@
-<at-item-form></at-item-form>
+<at-title [title]="'Courses/add new'"></at-title>
+<at-item-form
+    [course]="course"
+    (courseEventSave)="save($event)"
+    (courseEventCancel)="cancel()"
+></at-item-form>

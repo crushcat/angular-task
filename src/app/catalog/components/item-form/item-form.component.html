@@ -1,22 +1,22 @@
 <div class="form-container">
-  <form class="form">
+  <form class="form" (submit)="save()" [formGroup]="itemForm">
       <label>
         <h3>Title:</h3>
-        <input type="text" [(ngModel)]="course.title" name="title" required>
+        <input type="text" name="title" [formControl]="titleControl" required>
       </label>
       <label>
           <h3>Description:</h3>
-          <textarea [(ngModel)]="course.description" type="text" name="description"></textarea>
+          <textarea type="text" name="description" [formControl]="descriptionControl"></textarea>
       </label>
-      <at-form-date [creationDate]="course.creationDate"></at-form-date>
-      <at-form-duration [duration]="course.duration"></at-form-duration>
+      <at-form-date [formControl]="dateControl"></at-form-date>
+      <at-form-duration [formControl]="lengthControl"></at-form-duration>
       <label>
           <h3>Authors:</h3>
-          <input [(ngModel)]="course.authors" type="text" name="authors" required>
+          <input type="text" name="authors" [formControl]="authorsControl" required>
       </label>
       <div class="button-box">
-        <button (click)="save()" class='btn btn-save'>Save</button>
-        <button (click)="cancel()" class='btn btn-cancel'>Cancel</button>
+        <button type="submit" class='btn btn-save'>Save</button>
+        <button type="button" (click)="cancel()" class='btn btn-cancel'>Cancel</button>
       </div>
   </form>
 </div>

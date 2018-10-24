@@ -1,34 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ICourse } from '../../interfaces'
-import { Course } from '../../entites'
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-const mockCourseList : ICourse[] = [
-  {
-    id: 0,
-    title: 'Webpack',
-    creationDate: new Date('October 1, 2018 03:24:00'),
-    duration: 90,
-    description: 'fsdfndsfsdionfklsdfklsd',
-    topRated: true
-  },
-  {
-    id: 1,
-    title: 'TypeScript',
-    creationDate: new Date('October 19, 2018 03:24:00'),
-    duration: 60,
-    description: 'fsdfndsfsdionfklsdfklsd',
-    topRated: false
-  },
-  {
-    id: 2,
-    title: 'Angular Intro',
-    creationDate: new Date('October 20, 2018 03:24:00'),
-    duration: 20,
-    description: 'fsdfndsfsdionfklsdfklsd',
-    topRated: false
-  }
-];
-
+const SERVER_URL = "http://localhost:3004/courses"
+const COUNT_COURSES = 3;
 
 @Injectable({
   providedIn: 'root'
@@ -36,28 +12,35 @@ const mockCourseList : ICourse[] = [
 export class CoursesService {
   courseList: ICourse[];
 
-  constructor() {
-    this.courseList = mockCourseList.map((item: ICourse) => new Course(item));
+  createCourse(course: ICourse) : Observable<any> {
+    return this.http.post<ICourse[]>(SERVER_URL, course);
   }
 
-  createCourse(course: ICourse) {
-    this.courseList = [...this.courseList, new Course(course)];
-  }
-
-  getCourseById(id: number) {
-    return this.courseList.filter((item) => item.id = id)[0];
+  getCourseById(id: string) {
+    return this.http.get<ICourse[]>(SERVER_URL, {params: {id}});
   }
 
   updateCourse(course: ICourse) {
-    // do some stuff
+    this.courseList = this.courseList.map((item) => {
+      if(item.id == course.id) item = course;
+      return item;
+    })
   }
 
-  deleteCourse(id: number) {
-    this.courseList = this.courseList.filter((item) => item.id != id);
+  deleteCourse(id: number) : Observable<any> {
+    //this.courseList = this.courseList.filter((item) => item.id != id);
+    return this.http.delete<any>(`${SERVER_URL}/${id}`)
   }
 
-  getCourses() {
-    return this.courseList;
+  getCourses(pageNumber: number, textFragment?: string) : Observable<ICourse[]> {
+    const params = {
+      start: '0', 
+      count: `${COUNT_COURSES * pageNumber}`,
+      sort: 'date',
+    };
+    if(textFragment) return this.http.get<ICourse[]>(SERVER_URL, { params: {...params, textFragment}});
+    return this.http.get<ICourse[]>(SERVER_URL, {params: params});
   }
 
+  constructor(private http: HttpClient) { }
 }

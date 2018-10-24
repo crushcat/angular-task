@@ -11,7 +11,7 @@ export class LoginComponent {
   password: string;
 
   auth() {
-    this._authService.logIn(this.login);
+    this._authService.logIn(this.login, this.password);
   }
 
   constructor(private _authService: AuthService) {}

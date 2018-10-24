@@ -2,8 +2,8 @@
   <form class="form">
     <label>
       <h3>Duration:</h3>
-      <input [(ngModel)]="duration" type="text" name="duration">
+      <input [(ngModel)]="_value" (change)="onChange($event.target.value)" type="text" name="duration">
     </label>
   </form>
- <div class="duration">{{ duration | duration }}</div>
+ <div class="duration">{{ _value | duration }}</div>
 </div>

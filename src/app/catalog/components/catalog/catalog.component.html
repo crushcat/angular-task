@@ -1,13 +1,13 @@
 <main class="container">
-    <at-title></at-title>
+    <at-title [title]="title"></at-title>
     <at-toolbox (searchEventField)="search($event)"></at-toolbox>
-    <div  *ngIf="courseList.length" class="container-item">
+    <div class="container-item">
         <at-item 
-            *ngFor="let course of courseList | orderBy:'creationDate'"
+            *ngFor="let course of courseList | orderBy:'date'"
             (deleteCourseEvent)="deleteCourse($event)"
             (editCourseEvent)="editCourse($event)"
             [course]="course"
-            [atFresh]="course.creationDate.valueOf()"
+            [atFresh]="course.date"
         ></at-item>
     </div>
     <div *ngIf="!courseList.length" class="container-error" >No data. Feel free to add new course</div>

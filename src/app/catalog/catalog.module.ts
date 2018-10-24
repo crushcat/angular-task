@@ -9,7 +9,7 @@ import { OrderByPipe } from './pipes/orderBy/order-by.pipe';
 import { SearchPipe } from './pipes/search/search.pipe';
 import { CatalogRoutingModule } from './catalog-routing.module';
 import { ItemFormComponent } from './components/item-form/item-form.component';
-import { FormDurationComponen } from './components/form-duration/form-duration.component';
+import { FormDurationComponent } from './components/form-duration/form-duration.component';
 import { CoursesService } from './services/cources/courses.service';
 import { PageAddComponent } from './components/page-add/page-add.component';
 import { PageEditComponent } from './components/page-edit/page-edit.component';
@@ -29,7 +29,7 @@ import { FormDateComponent } from './components/form-date/form-date.component';
     OrderByPipe,
     SearchPipe,
     ItemFormComponent,
-    FormDurationComponen,
+    FormDurationComponent,
     PageAddComponent,
     PageEditComponent,
     FormDateComponent

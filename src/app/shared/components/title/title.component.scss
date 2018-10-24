@@ -2,5 +2,6 @@
 
 .title {
     width: 1000px;
+    margin: 0 auto;
     @include flexbox(row, flex-start, center);
 }
