@@ -7,9 +7,11 @@
     max-height: 150px;
     margin: 10px 0;
     padding: 20px 15px;
+    color: white;
     border-radius: 10px;
-    border: 1px solid darken($header-color, 10%);
-    background-color: rgba($header-color, .5);
+    box-shadow: 1px 1px 4px 0px #ccc;
+    border: .5px solid opacify(#ccc, 0.5);
+    background-image: $item-color;
 
     .info {
         width: 80%;
@@ -38,18 +40,18 @@
         @include flexbox(column, space-between, center);
 
         .btn {
-            color: white;
             @extend %button-style;
+            color: white;
         }
     }
 }
 
 .btn-edit {
-    background-color: $button-color-caution;
+    background-color: $color-caution;
 }
 
 .btn-delete {
-    background-color: $button-color-danger;
+    background-color: $color-danger;
 }
 
 .top {

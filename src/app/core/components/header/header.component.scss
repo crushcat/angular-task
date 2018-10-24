@@ -4,6 +4,8 @@
    width: 100%;
    height: 75px;
    padding: 0 25px;
-   background-color: $header-color;
+   background-color: $first-color;
+   box-shadow: 1px 1px 4px 6px #ccc;
+   color: white;
    @include flexbox(row, space-between, center);
 }

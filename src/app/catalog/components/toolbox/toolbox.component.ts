@@ -1,5 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router'
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'at-toolbox',
@@ -8,15 +10,24 @@ import { Router } from '@angular/router'
 })
 export class ToolboxComponent {
   @Output() searchEventField: EventEmitter<string> = new EventEmitter();
-  searchField: string;
-  
-  search() {
-    this.searchEventField.emit(this.searchField);
+  $searchSubject: Subject<string> = new Subject();
+
+  search(data) {
+    const { value } = data.target;
+    if(value.length > 3 || !value.length) {
+      this.$searchSubject.next(value);
+   }
   }
 
   addCourse() {
-    this._router.navigateByUrl('catalog/add');
+    this.router.navigateByUrl('catalog/add');
   }
 
-  constructor(private _router: Router) {}
+  constructor(private router: Router) {
+    this.$searchSubject
+    .pipe(debounceTime(1000))
+    .subscribe((data) => {
+      this.searchEventField.emit(data);
+    });
+  }
 }

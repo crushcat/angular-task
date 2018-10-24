@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ICourse } from '../../interfaces'
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { LoadingService } from 'src/app/core/services/loadingService/loading.service';
 
 const SERVER_URL = "http://localhost:3004/courses"
 const COUNT_COURSES = 3;
@@ -13,22 +14,20 @@ export class CoursesService {
   courseList: ICourse[];
 
   createCourse(course: ICourse) : Observable<any> {
+    this.loader.start();
     return this.http.post<ICourse[]>(SERVER_URL, course);
   }
 
   getCourseById(id: string) {
+    this.loader.start();
     return this.http.get<ICourse[]>(SERVER_URL, {params: {id}});
   }
 
-  updateCourse(course: ICourse) {
-    this.courseList = this.courseList.map((item) => {
-      if(item.id == course.id) item = course;
-      return item;
-    })
+  updateCourse(course: ICourse): Observable<any> {
+    return this.http.put<any>(`${SERVER_URL}`, course);
   }
 
   deleteCourse(id: number) : Observable<any> {
-    //this.courseList = this.courseList.filter((item) => item.id != id);
     return this.http.delete<any>(`${SERVER_URL}/${id}`)
   }
 
@@ -38,9 +37,13 @@ export class CoursesService {
       count: `${COUNT_COURSES * pageNumber}`,
       sort: 'date',
     };
+    this.loader.start();
     if(textFragment) return this.http.get<ICourse[]>(SERVER_URL, { params: {...params, textFragment}});
     return this.http.get<ICourse[]>(SERVER_URL, {params: params});
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private loader: LoadingService
+    ) { }
 }

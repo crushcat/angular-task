@@ -2,7 +2,7 @@
   <label>
     <h3>Date:</h3>
     <input 
-      [ngModel]="_value"
+      [ngModel]="_value | date:'yyyy-MM-dd'"
       (change)="onChange($event.target.value)"
       type="date"
       name="creationDate"

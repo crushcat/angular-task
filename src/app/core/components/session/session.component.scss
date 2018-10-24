@@ -7,6 +7,6 @@
 
 .btn {
     @extend %button-style;
-    background-color: $button-color-danger;
+    background-color: $color-danger;
     color: white;
 }

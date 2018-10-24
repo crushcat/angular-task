@@ -1,5 +1,6 @@
 <at-title [title]="title"></at-title>
 <at-item-form 
+    *ngIf="course"
     [course]="course"
     (courseEventSave)="save($event)"
     (courseEventCancel)="cancel()"

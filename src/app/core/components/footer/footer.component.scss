@@ -6,6 +6,6 @@
     width: 100%;
     height: 30px;
     padding-right: 25px;
-    background-color: $header-color;
+    background-color: $block-color;
     @include flexbox(row, flex-end, center);
 }

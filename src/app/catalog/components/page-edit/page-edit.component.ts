@@ -13,12 +13,16 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class PageEditComponent implements OnInit { 
   public id: string;
-  public courseSub: Subscription
+  public courseSub: Subscription;
+  public updateSub: Subscription;
   public course: ICourse;
   public title: string;
 
   save(data) {
-    this.courseService.updateCourse(data);
+    this.updateSub = this.courseService.updateCourse(data)
+        .subscribe((data) => {
+          console.log(data);
+        });
     this.back();
   }
 
@@ -31,9 +35,10 @@ export class PageEditComponent implements OnInit {
       this.id = data.id;
       this.courseSub = this.courseService.getCourseById(this.id)
           .subscribe((item) => {
+            console.log(item);
             this.course = item[0];
+            this.title = `Courses/${this.course.name}`;
           }, (error: HttpErrorResponse) => console.error(error));
-      this.title = `Courses/${this.course.name}`;
     });
   }
 

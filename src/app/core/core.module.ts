@@ -7,14 +7,15 @@ import { FooterComponent } from './components/footer/footer.component';
 import { AuthGuardService } from './services/authGuard/auth-guard.service';
 import { AuthService } from './services/authService/auth.service';
 import { SharedModule } from '../shared/shared.module';
-import { FormsModule } from '@angular/forms';
+import { LoadingBlockComponent } from './components/loading-block/loading-block.component';
+import { LoadingService } from './services/loadingService/loading.service';
 
 @NgModule({
   imports: [
     SharedModule,
   ],
-  declarations: [HeaderComponent, LogoComponent, SessionComponent, FooterComponent],
-  exports: [HeaderComponent, FooterComponent],
-  providers: [AuthGuardService, AuthService]
+  declarations: [HeaderComponent, LogoComponent, SessionComponent, FooterComponent, LoadingBlockComponent],
+  exports: [HeaderComponent, FooterComponent, LoadingBlockComponent],
+  providers: [AuthGuardService, AuthService, LoadingService]
 })
 export class CoreModule { }
