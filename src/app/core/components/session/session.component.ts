@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/authService/auth.service';
 import { Observable } from 'rxjs';
 import { IUser } from '../../interfaces';
+import { Store } from '@ngrx/store';
+import { IAuthState } from '../../state/models';
+import { LogoutAction } from '../../state/actions';
 
 @Component({
   selector: 'at-session',
@@ -20,8 +23,11 @@ export class SessionComponent implements OnInit {
   }
 
   logout() {
-    this._authService.logOut();
+    this.store.dispatch(new LogoutAction());
   }
 
-  constructor(private _authService: AuthService) {}
+  constructor(
+    private _authService: AuthService,
+    private store: Store<IAuthState>
+  ) {}
 }

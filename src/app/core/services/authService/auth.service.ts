@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { IUser } from '../../interfaces'
-import { Observable } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import { IAuthState } from '../../state/models';
+import { Store } from '@ngrx/store';
 
 const SERVER_URL = "http://localhost:3004/auth";
 
@@ -10,31 +11,31 @@ const SERVER_URL = "http://localhost:3004/auth";
   providedIn: 'root'
 })
 export class AuthService {
+  tokenSub: Subscription;
+  token: string;
 
   logIn(login: string, password: string) {
-    this.http.post<any>(`${SERVER_URL}/login`,{login, password})
-        .subscribe((data) => {
-              localStorage.setItem('token', data.token);
-              this.router.navigate(['']);
-          }, (error: HttpErrorResponse) => console.error(error));
-  }
-
-  logOut() {
-    localStorage.removeItem('token');
-    this.router.navigateByUrl('/auth');
+    return this.http.post<any>(`${SERVER_URL}/login`,{login, password})
   }
 
   IsAuthenticated() : boolean {
-    return !!localStorage.getItem('token');
+    return !!this.token;
   }
 
   getUserInfo(): Observable<IUser> {
-    const token = localStorage.getItem('token');
+    const { token } = this;
     return this.http.post<IUser>(`${SERVER_URL}/userinfo`, {token});
   }
 
   constructor(
-    private router: Router,
-    private http: HttpClient
-    ) {}
+    private http: HttpClient,
+    private store: Store<any>
+    ) {
+      
+      this.tokenSub = this.store
+      .select(state => state.auth.token)
+      .subscribe((newToken) => {
+        this.token = newToken;
+      })
+    }
 }

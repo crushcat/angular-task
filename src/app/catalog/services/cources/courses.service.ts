@@ -25,7 +25,7 @@ export class CoursesService {
 
   updateCourse(course: ICourse): Observable<any> {
     this.loader.set(true);
-    return this.http.put<any>(`${SERVER_URL}`, course);
+    return this.http.patch<any>(`${SERVER_URL}/${course.id}`, course);
   }
 
   deleteCourse(id: number) : Observable<any> {

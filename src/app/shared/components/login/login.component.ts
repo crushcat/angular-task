@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/core/services/authService/auth.service';
+import { Store } from '@ngrx/store';
+import { IAuthState } from 'src/app/core/state/models';
+import { AuthAction } from 'src/app/core/state/actions';
 
 @Component({
   selector: 'at-login',
@@ -11,8 +13,9 @@ export class LoginComponent {
   password: string;
 
   auth() {
-    this._authService.logIn(this.login, this.password);
+    const { login, password } = this;
+    this.store.dispatch(new AuthAction({login, password}));
   }
 
-  constructor(private _authService: AuthService) {}
+  constructor(private store: Store<IAuthState>) { }
 }

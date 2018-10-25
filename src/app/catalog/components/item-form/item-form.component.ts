@@ -30,8 +30,8 @@ export class ItemFormComponent implements OnInit {
     this.itemForm = this.fb.group({
       title: this.titleControl,
       description: this.descriptionControl,
-      creationDate: this.dateControl,
-      lenght: this.lengthControl,
+      date: this.dateControl,
+      length: this.lengthControl,
       authors: this.authorsControl
     });
 
@@ -44,7 +44,7 @@ export class ItemFormComponent implements OnInit {
     this.itemForm.valueChanges.subscribe(() => {
       this.course.name = this.itemForm.value.title;
       this.course.description = this.itemForm.value.description;
-      this.course.date = new Date(this.itemForm.value.date);
+      this.course.date = new Date(Date.parse(this.itemForm.value.date));
       this.course.length = this.itemForm.value.length;
       this.course.authors = this.itemForm.value.authors;
     })
