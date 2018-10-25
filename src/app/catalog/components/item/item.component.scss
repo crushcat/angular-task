@@ -7,11 +7,11 @@
     max-height: 150px;
     margin: 10px 0;
     padding: 20px 15px;
-    color: white;
+    color: black;
     border-radius: 10px;
     box-shadow: 1px 1px 4px 0px #ccc;
     border: .5px solid opacify(#ccc, 0.5);
-    background-image: $item-color;
+    background-color: $item-color;
 
     .info {
         width: 80%;
@@ -55,5 +55,5 @@
 }
 
 .top {
-    background-color: $top-rated-course;
+    background-image: $top-rated-course;
 }

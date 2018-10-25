@@ -14,20 +14,22 @@ export class CoursesService {
   courseList: ICourse[];
 
   createCourse(course: ICourse) : Observable<any> {
-    this.loader.start();
+    this.loader.set(true);
     return this.http.post<ICourse[]>(SERVER_URL, course);
   }
 
   getCourseById(id: string) {
-    this.loader.start();
+    this.loader.set(true);
     return this.http.get<ICourse[]>(SERVER_URL, {params: {id}});
   }
 
   updateCourse(course: ICourse): Observable<any> {
+    this.loader.set(true);
     return this.http.put<any>(`${SERVER_URL}`, course);
   }
 
   deleteCourse(id: number) : Observable<any> {
+    this.loader.set(true);
     return this.http.delete<any>(`${SERVER_URL}/${id}`)
   }
 
@@ -37,7 +39,7 @@ export class CoursesService {
       count: `${COUNT_COURSES * pageNumber}`,
       sort: 'date',
     };
-    this.loader.start();
+    this.loader.set(true);
     if(textFragment) return this.http.get<ICourse[]>(SERVER_URL, { params: {...params, textFragment}});
     return this.http.get<ICourse[]>(SERVER_URL, {params: params});
   }

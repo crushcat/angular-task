@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingService } from '../../services/loadingService/loading.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'at-loading-block',
@@ -7,10 +8,15 @@ import { LoadingService } from '../../services/loadingService/loading.service';
   styleUrls: ['./loading-block.component.scss']
 })
 export class LoadingBlockComponent implements OnInit {
-  public isLoading: boolean;
+  public $isLoading: Subscription;
+  public isLoading: boolean = false;
 
   ngOnInit() {
-    this.isLoading = this.loadingService.get();
+    this.$isLoading = this.loadingService
+        .get()
+        .subscribe((item) => {
+          this.isLoading = item;
+        });
   }
 
   constructor(private loadingService: LoadingService) { }

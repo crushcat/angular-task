@@ -2,11 +2,14 @@
 
 .form-container {
     position: relative;
-    top: 100px;
+    top: 50px;
     width: 600px;
     margin: auto;
     padding: 30px 50px;
-    background-color: $block-color;
+    border-radius: 10px;
+    box-shadow: 1px 1px 4px 0px #ccc;
+    border: .5px solid opacify(#ccc, 0.5);
+    background-color: $item-color;
 }
 
 .form {

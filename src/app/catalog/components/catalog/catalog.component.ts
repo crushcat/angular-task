@@ -5,6 +5,7 @@ import { CoursesService } from '../../services/cources/courses.service';
 import { Router } from '@angular/router'
 import { Observable, Subscription } from 'rxjs';
 import { Course } from '../../entites';
+import { LoadingService } from 'src/app/core/services/loadingService/loading.service';
 
 @Component({
   selector: 'at-catalog',
@@ -34,6 +35,7 @@ export class CatalogComponent implements OnInit {
     if(result) {
       this.deleteCoursesSub = this.coursesService.deleteCourse(data)
         .subscribe((data) => {
+          this.loader.set(false);
           this.loadCourses();
       }, (error) => {
         console.warn(error);
@@ -50,6 +52,7 @@ export class CatalogComponent implements OnInit {
   loadCourses(textFragment?: string) {
     this.coursesListSub = this.coursesService.getCourses(this.pageNumbers, textFragment)
       .subscribe((data) => {
+        this.loader.set(false);
         if(data) {
           this.courseList = data.map((item) => new Course(item));
           this.backupList = [...this.courseList];
@@ -66,6 +69,7 @@ export class CatalogComponent implements OnInit {
   constructor(
     private _searchPipe: SearchPipe,
     private coursesService: CoursesService,
+    private loader: LoadingService,
     private router: Router
     ) { }
 }

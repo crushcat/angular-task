@@ -12,13 +12,9 @@
 }
 
 .input {
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 5px 15px;
-
-    &:focus {
-        border-color: $color-danger;
-    }
+    @extend %input-style;
+    width: 100%;
+    background-color: #fff;
 }
 
 .btn {
@@ -32,7 +28,7 @@
     }
 
     &-add {
-        background-color: $button-color-add;
+        background-color: $color-blue;
         
     }
 }

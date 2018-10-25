@@ -1,21 +1,18 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoadingService {
-  public isLoad: boolean = false;
+  public $isLoad: Subject<boolean> = new Subject();
 
-  start(): void {
-    this.isLoad = true;
+  set(value: boolean): void {
+    this.$isLoad.next(value);
   }
 
-  stop(): void {
-    this.isLoad = false;
-  }
-
-  get(): boolean {
-    return this.isLoad;
+  get(): Subject<boolean> {
+    return this.$isLoad;
   }
 
 }

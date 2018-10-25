@@ -17,7 +17,7 @@
     border: 2px solid $input-color-valid;
     border-radius: 7px;
     &:focus {
-        border-color: $button-color-add;
+        border-color: $first-color;
     }
     &:invalid {
         border-color: $color-danger;
