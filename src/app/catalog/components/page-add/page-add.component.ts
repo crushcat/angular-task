@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
-import { CoursesService } from '../../services/cources/courses.service';
 import { ICourse } from '../../interfaces';
 import { Subscription } from 'rxjs';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import { AddAction } from '../../state/actions';
 
 enum Course {
   name = 'Example titile',
@@ -18,15 +18,12 @@ enum Course {
   templateUrl: './page-add.component.html',
   styleUrls: ['./page-add.component.scss']
 })
-export class PageAddComponent {
+export class PageAddComponent implements OnDestroy {
   saveCourseSub: Subscription;
   course = Course;
 
-  save(data) {
-    this.saveCourseSub = this.courseService.createCourse(data)
-      .subscribe((item) => {
-        console.log(item);
-      }, (error: HttpErrorResponse) => console.error(error));
+  save(newCourse: ICourse) {
+    this.store.dispatch(new AddAction({newCourse}));
     this.back();
   }
 
@@ -38,8 +35,12 @@ export class PageAddComponent {
     this.location.back();
   }
 
+  ngOnDestroy() {
+    this.saveCourseSub.unsubscribe();
+  }
+
   constructor(
-    private courseService: CoursesService,
+    private store: Store<any>,
     private location: Location
     ) { }
 }

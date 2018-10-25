@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ICourse } from '../../interfaces';
 import { SearchPipe } from '../../pipes/search/search.pipe';
-import { CoursesService } from '../../services/cources/courses.service';
 import { Router } from '@angular/router'
-import { Observable, Subscription } from 'rxjs';
-import { Course } from '../../entites';
-import { LoadingService } from 'src/app/core/services/loadingService/loading.service';
+import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { LoadAction, DeleteAction } from '../../state/actions';
 
 @Component({
   selector: 'at-catalog',
@@ -13,7 +12,7 @@ import { LoadingService } from 'src/app/core/services/loadingService/loading.ser
   styleUrls: ['./catalog.component.scss'],
   providers: [SearchPipe],
 })
-export class CatalogComponent implements OnInit {
+export class CatalogComponent implements OnInit, OnDestroy {
   coursesListSub: Subscription;
   deleteCoursesSub: Subscription;
   courseList: ICourse[] = [];
@@ -30,46 +29,39 @@ export class CatalogComponent implements OnInit {
     this.router.navigateByUrl(`catalog/${data}`);
   }
 
-  deleteCourse(data) {
+  deleteCourse(id) {
     const result: boolean = window.confirm("Are you sure?");
-    if(result) {
-      this.deleteCoursesSub = this.coursesService.deleteCourse(data)
-        .subscribe((data) => {
-          this.loader.set(false);
-          this.loadCourses();
-      }, (error) => {
-        console.warn(error);
-      });
-    }
+    if(result) this.store.dispatch(new DeleteAction({id}));
   }
 
   search(data) {
     if(!data) this.courseList = [...this.backupList];
     this.loadCourses(data);
-    this.courseList = this._searchPipe.transform(this.courseList, data);
   }
 
   loadCourses(textFragment?: string) {
-    this.coursesListSub = this.coursesService.getCourses(this.pageNumbers, textFragment)
-      .subscribe((data) => {
-        this.loader.set(false);
-        if(data) {
-          this.courseList = data.map((item) => new Course(item));
-          this.backupList = [...this.courseList];
-        }
-    }, (error) => {
-      console.warn(error);
-    });
+    const { pageNumbers } = this;
+    this.store.dispatch(new LoadAction({pageNumbers, textFragment}));
   }
 
   ngOnInit() {
     this.loadCourses();
   }
+  
+  ngOnDestroy() {
+    this.coursesListSub.unsubscribe();
+    this.deleteCoursesSub.unsubscribe();
+  }
 
   constructor(
-    private _searchPipe: SearchPipe,
-    private coursesService: CoursesService,
-    private loader: LoadingService,
+    private store: Store<any>,
     private router: Router
-    ) { }
+    ) { 
+      this.coursesListSub = this.store
+      .select(state => state.course.courses)
+      .subscribe((newCoursesList) => {
+        this.courseList = newCoursesList;
+        this.backupList = [...this.courseList];
+      })
+    }
 }

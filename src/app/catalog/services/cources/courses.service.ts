@@ -33,7 +33,7 @@ export class CoursesService {
     return this.http.delete<any>(`${SERVER_URL}/${id}`)
   }
 
-  getCourses(pageNumber: number, textFragment?: string) : Observable<ICourse[]> {
+  getCourses(pageNumber: number, textFragment: string) : Observable<ICourse[]> {
     const params = {
       start: '0', 
       count: `${COUNT_COURSES * pageNumber}`,

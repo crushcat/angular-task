@@ -9,6 +9,8 @@ import { AuthInterceptor } from './auth-interceptor';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './core/state/effects';
 import { AuthReducer } from './core/state/reducers';
+import { CourseReducer } from './catalog/state/reducers';
+import { CourseEffects } from './catalog/state/effects';
 
 @NgModule({
   declarations: [
@@ -19,8 +21,8 @@ import { AuthReducer } from './core/state/reducers';
     CoreModule,
     AppRouterModule,
     HttpClientModule,
-    StoreModule.forRoot({auth: AuthReducer}),
-    EffectsModule.forRoot([AuthEffects])
+    StoreModule.forRoot({auth: AuthReducer, course: CourseReducer}),
+    EffectsModule.forRoot([AuthEffects, CourseEffects])
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
