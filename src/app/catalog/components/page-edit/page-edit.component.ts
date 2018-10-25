@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { LoadingService } from 'src/app/core/services/loadingService/loading.service';
 
 @Component({
   selector: 'at-page-edit',
@@ -35,7 +36,7 @@ export class PageEditComponent implements OnInit {
       this.id = data.id;
       this.courseSub = this.courseService.getCourseById(this.id)
           .subscribe((item) => {
-            console.log(item);
+            this.loader.set(false);
             this.course = item[0];
             this.title = `Courses/${this.course.name}`;
           }, (error: HttpErrorResponse) => console.error(error));
@@ -49,6 +50,7 @@ export class PageEditComponent implements OnInit {
   constructor(
     private courseService: CoursesService,
     private router: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private loader: LoadingService
     ) { }
 }
