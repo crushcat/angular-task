@@ -1,0 +1,20 @@
+<form class="form">
+  <label>
+    <h3>Authors:</h3>
+    <div class="authors-block">
+        <ul class="tags-authors">
+          <li (click)="delete(item)" *ngFor="let item of choosedAuthors">{{item.name}}</li>
+        </ul>
+        <input 
+        class="input"
+        [formControl]="authorsControl"
+        type="text"
+        name="authors"
+        maxlength="30">
+    </div>
+
+  </label>
+  <div *ngIf="authorsControl.value">
+    <div (click)="add(item)" *ngFor="let item of authorsList">{{ item.name }}</div>
+  </div>
+</form>

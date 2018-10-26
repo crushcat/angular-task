@@ -14,6 +14,7 @@ import { CoursesService } from './services/cources/courses.service';
 import { PageAddComponent } from './components/page-add/page-add.component';
 import { PageEditComponent } from './components/page-edit/page-edit.component';
 import { FormDateComponent } from './components/form-date/form-date.component';
+import { FormAuthorsComponent } from './components/form-authors/form-authors.component';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { FormDateComponent } from './components/form-date/form-date.component';
     FormDurationComponent,
     PageAddComponent,
     PageEditComponent,
-    FormDateComponent
+    FormDateComponent,
+    FormAuthorsComponent
   ],
   providers: [CoursesService],
   exports: [CatalogComponent]

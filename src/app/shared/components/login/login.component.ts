@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IAuthState } from 'src/app/core/state/models';
 import { AuthAction } from 'src/app/core/state/actions';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'at-login',
@@ -9,13 +10,22 @@ import { AuthAction } from 'src/app/core/state/actions';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  login: string;
-  password: string;
+  authForm: FormGroup;
+  loginControl = new FormControl('');
+  passwordControl = new FormControl('');
 
   auth() {
-    const { login, password } = this;
+    const { login, password } = this.authForm.value;
     this.store.dispatch(new AuthAction({login, password}));
   }
 
-  constructor(private store: Store<IAuthState>) { }
+  constructor(
+    private store: Store<IAuthState>,
+    private fb: FormBuilder
+    ) { 
+    this.authForm = this.fb.group({
+      login: this.loginControl,
+      password: this.passwordControl
+    })
+  }
 }

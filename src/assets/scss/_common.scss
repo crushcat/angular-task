@@ -23,3 +23,18 @@
         border-color: $color-danger;
     }
 }
+
+.validation-error {
+    border-color: $color-danger !important;
+}
+
+.validation-block {
+    position: relative;
+    top: 5px;
+    font-size: 11px;
+    color: red;
+
+    &::before {
+        content: "*Error: ";
+    }
+}

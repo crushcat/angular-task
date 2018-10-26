@@ -1,10 +1,8 @@
 @import '../../../../assets/scss/common';
 
 .form-container {
-    position: relative;
     width: 600px;
-    margin: auto;
-    top: 70px;
+    margin: 70px auto 50px;
     padding: 30px 50px;
     border-radius: 10px;
     box-shadow: 1px 1px 4px 0px #ccc;
@@ -38,7 +36,7 @@
         max-width: 100%;
         min-width: 100%;
         min-height: 50px;
-        max-height: 280px;
+        max-height: 200px;
     }
 }
 

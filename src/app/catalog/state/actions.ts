@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { COURSE_ACTIONS } from './constants';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ICourse } from '../interfaces';
+import { IAuthor } from '../interfaces/authors.model';
 
 export class LoadAction implements Action {
     readonly type = COURSE_ACTIONS.LOAD_COURSES;
@@ -28,9 +29,21 @@ export class AddAction implements Action {
     constructor(public payload: {newCourse: ICourse}) { }
 }
 
+export class FetchAuthors implements Action {
+    readonly type = COURSE_ACTIONS.FETCH_AUTHORS;
+    constructor(public payload: {textFragment: string}) { }
+}
+
+export class StoreAuthors implements Action {
+    readonly type = COURSE_ACTIONS.STORE_AUTHORS;
+    constructor(public payload: {authors: IAuthor[]}) { }
+}
+
 export type Actions = 
         LoadAction | 
         StoreAction | 
         FailedAction |
         DeleteAction |
-        AddAction;
+        AddAction |
+        FetchAuthors |
+        StoreAuthors;

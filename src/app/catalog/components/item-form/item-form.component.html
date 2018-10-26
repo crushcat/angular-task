@@ -2,20 +2,31 @@
   <form class="form" (submit)="save()" [formGroup]="itemForm">
       <label>
         <h3>Title:</h3>
-        <input type="text" name="title" [formControl]="titleControl" required>
+        <input [ngClass]="controls.title.errors? 'validation-error' : ''" type="text" name="title" [formControl]="titleControl">
+        <div class="validation-block" *ngIf="controls.title.errors && controls.title.touched">
+          Title is require and max length 50 symbols
+        </div>
       </label>
+
       <label>
           <h3>Description:</h3>
-          <textarea type="text" name="description" [formControl]="descriptionControl"></textarea>
+          <textarea 
+            [ngClass]="controls.description.errors? 'validation-error' : ''"
+            type="text" 
+            name="description" 
+            [formControl]="descriptionControl"
+          ></textarea>
+          <div class="validation-block" *ngIf="controls.description.errors && controls.description.touched">
+            Description is require and max length 500 symbols
+          </div>
       </label>
+
       <at-form-date [formControl]="dateControl"></at-form-date>
       <at-form-duration [formControl]="lengthControl"></at-form-duration>
-      <label>
-          <h3>Authors:</h3>
-          <input type="text" name="authors" [formControl]="authorsControl" required>
-      </label>
+      <at-form-authors [formControl]="authorsControl"></at-form-authors>
+
       <div class="button-box">
-        <button type="submit" class='btn btn-save'>Save</button>
+        <button [disabled]="itemForm.invalid" type="submit" class='btn btn-save'>Save</button>
         <button type="button" (click)="cancel()" class='btn btn-cancel'>Cancel</button>
       </div>
   </form>

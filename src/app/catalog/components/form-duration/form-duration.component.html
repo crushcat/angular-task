@@ -2,8 +2,16 @@
   <form class="form">
     <label>
       <h3>Duration:</h3>
-      <input [(ngModel)]="_value" (change)="onChange($event.target.value)" type="text" name="duration">
+      <input 
+        [formControl]="lengthControl" 
+        [ngClass]="lengthControl.errors ? 'validation-error' : ''"
+        (change)="onChange($event.target.value)" 
+        type="text" 
+        name="duration">
+      <div class="validation-block" *ngIf="lengthControl.errors && lengthControl.touched">
+          Length is require and must be only numbers
+      </div>
     </label>
   </form>
- <div class="duration">{{ _value | duration }}</div>
+ <div class="duration">{{ lengthControl.value | duration }}</div>
 </div>

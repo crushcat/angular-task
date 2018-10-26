@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'at-toolbox',
@@ -11,9 +12,9 @@ import { debounceTime } from 'rxjs/operators';
 export class ToolboxComponent {
   @Output() searchEventField: EventEmitter<string> = new EventEmitter();
   $searchSubject: Subject<string> = new Subject();
+  private searchControl = new FormControl('');
 
-  search(data) {
-    const { value } = data.target;
+  search(value) {
     if(value.length > 3 || !value.length) {
       this.$searchSubject.next(value);
    }
@@ -29,5 +30,10 @@ export class ToolboxComponent {
     .subscribe((data) => {
       this.searchEventField.emit(data);
     });
-  }
-}
+
+    this.searchControl.valueChanges.subscribe(value => {
+      this.search(value);
+    });
+  }; 
+
+};

@@ -1,7 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { ICourse } from '../../interfaces';
-import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AddAction } from '../../state/actions';
 
@@ -18,8 +17,7 @@ enum Course {
   templateUrl: './page-add.component.html',
   styleUrls: ['./page-add.component.scss']
 })
-export class PageAddComponent implements OnDestroy {
-  saveCourseSub: Subscription;
+export class PageAddComponent {
   course = Course;
 
   save(newCourse: ICourse) {
@@ -33,10 +31,6 @@ export class PageAddComponent implements OnDestroy {
 
   back() {
     this.location.back();
-  }
-
-  ngOnDestroy() {
-    this.saveCourseSub.unsubscribe();
   }
 
   constructor(

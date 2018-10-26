@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ICourse } from '../../interfaces';
 import { CoursesService } from '../../services/cources/courses.service';
 import { ActivatedRoute } from '@angular/router';
@@ -12,7 +12,7 @@ import { LoadingService } from 'src/app/core/services/loadingService/loading.ser
   templateUrl: './page-edit.component.html',
   styleUrls: ['./page-edit.component.scss']
 })
-export class PageEditComponent implements OnInit { 
+export class PageEditComponent implements OnInit, OnDestroy { 
   public id: string;
   public courseSub: Subscription;
   public updateSub: Subscription;
@@ -31,6 +31,10 @@ export class PageEditComponent implements OnInit {
     this.back();
   }
 
+  back() {
+    this.location.back();
+  }
+
   ngOnInit() {
     this.router.params.subscribe((data) => {
       this.id = data.id;
@@ -43,8 +47,9 @@ export class PageEditComponent implements OnInit {
     });
   }
 
-  back() {
-    this.location.back();
+  ngOnDestroy() {
+    this.courseSub.unsubscribe();
+    if(this.updateSub) this.updateSub.unsubscribe();
   }
 
   constructor(

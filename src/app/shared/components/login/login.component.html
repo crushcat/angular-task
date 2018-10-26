@@ -2,14 +2,14 @@
   <div class="auth-block">
     <h2 class="title">Auth</h2>
     <div class="line"></div>
-    <form class="form" (submit)="auth()">
+    <form [formGroup]="authForm" class="form" (submit)="auth()">
       <label>
         Login: *required
-        <input type="text" [(ngModel)]="login" name="login" required>
+        <input type="text" [formControl]="loginControl" name="login" required>
       </label>
       <label>
           Password: *required
-          <input type="password" [(ngModel)]="password" name="password" required>
+          <input type="password" [formControl]="passwordControl" name="password" required>
       </label>
       <button type="submit" class="btn btn-login">Login</button>
     </form>

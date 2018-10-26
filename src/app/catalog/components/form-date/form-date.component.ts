@@ -1,5 +1,5 @@
 import { Component, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormControl, Validators, ValidationErrors, AbstractControl } from '@angular/forms';
 
 export const FORM_DATE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -14,17 +14,21 @@ export const FORM_DATE_VALUE_ACCESSOR: any = {
   providers: [FORM_DATE_VALUE_ACCESSOR]
 })
 export class FormDateComponent implements ControlValueAccessor {
-  _value: Date;
-
   onChange: any = () => {};
   onTouched: any = () => {};
+  private dateValidation = (control: AbstractControl): ValidationErrors => {
+    if (isNaN(Date.parse(control.value))) return { date: 'Date type must be like mm/dd/yyyy' };
+    return null;
+  }
+
+  private dateControl = new FormControl('', [Validators.required, this.dateValidation]);
 
   get value() {
-    return this._value;
+    return this.dateControl.value;
   }
 
   set value(value) {
-    this._value = value;
+    this.dateControl.setValue(value);
     this.onChange(value);
     this.onTouched();
   }
@@ -34,10 +38,11 @@ export class FormDateComponent implements ControlValueAccessor {
   }
 
   writeValue(value) {
-    if (value) this._value = value;
+    if (value) this.dateControl.setValue(value);
   }
 
   registerOnTouched(fn) {
     this.onTouched = fn;
   }
+  
 }

@@ -9,12 +9,12 @@
 .form {
     width: 350px;
     @include flexbox(row, space-between, center); 
-}
 
-.input {
-    @extend %input-style;
-    width: 100%;
-    background-color: #fff;
+    input {
+        @extend %input-style;
+        width: 100%;
+        background-color: #fff;
+    }
 }
 
 .btn {

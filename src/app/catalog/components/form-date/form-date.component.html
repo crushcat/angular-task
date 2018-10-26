@@ -2,10 +2,15 @@
   <label>
     <h3>Date:</h3>
     <input 
-      [ngModel]="_value | date:'yyyy-MM-dd'"
+      [formControl]="dateControl"
+      [value]="dateControl.value | date:'yyyy-MM-dd'"
       (change)="onChange($event.target.value)"
       type="date"
       name="creationDate"
+      [ngClass]="dateControl.errors? 'validation-error' : ''"
     >
+    <div class="validation-block" *ngIf="dateControl.errors && dateControl.touched">
+      Date is require and must be format like mm/dd/yyyy
+    </div>
   </label>
 </form>

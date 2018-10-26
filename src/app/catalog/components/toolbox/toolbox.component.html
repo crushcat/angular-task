@@ -1,6 +1,6 @@
 <div class="container">
   <form class="form">
-    <input class="input" (change)="search($event)" name="search" type="text">
+    <input [formControl]="searchControl" name="search" type="text">
   </form>
   <button (click)="addCourse()" class="btn btn-add">Add course</button>
 </div>

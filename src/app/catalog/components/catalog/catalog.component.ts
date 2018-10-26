@@ -14,7 +14,6 @@ import { LoadAction, DeleteAction } from '../../state/actions';
 })
 export class CatalogComponent implements OnInit, OnDestroy {
   coursesListSub: Subscription;
-  deleteCoursesSub: Subscription;
   courseList: ICourse[] = [];
   backupList: ICourse[];
   title: string = 'Courses';
@@ -50,7 +49,6 @@ export class CatalogComponent implements OnInit, OnDestroy {
   
   ngOnDestroy() {
     this.coursesListSub.unsubscribe();
-    this.deleteCoursesSub.unsubscribe();
   }
 
   constructor(
