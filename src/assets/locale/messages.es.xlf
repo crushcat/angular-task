@@ -2,7 +2,7 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
-      <trans-unit id="authLabelLogin" datatype="html">
+          <trans-unit id="authLabelLogin" datatype="html">
         <source>
         Login:
         <x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input/&gt;"/>
@@ -10,6 +10,13 @@
           This field is required
         <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
       </source>
+      <target>
+        Sesión:
+        <x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input/&gt;"/>
+        <x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>
+          Este campo es obligatorio
+        <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
+      </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/login/login.component.html</context>
           <context context-type="linenumber">6</context>
@@ -24,6 +31,13 @@
             This field is required
           <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
       </source>
+      <target>
+          Contraseña:
+          <x id="TAG_INPUT" ctype="x-input" equiv-text="&lt;input/&gt;"/>
+          <x id="START_TAG_DIV" ctype="x-div" equiv-text="&lt;div&gt;"/>
+            Este campo es obligatorio
+          <x id="CLOSE_TAG_DIV" ctype="x-div" equiv-text="&lt;/div&gt;"/>
+      </target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/shared/components/login/login.component.html</context>
           <context context-type="linenumber">15</context>
@@ -34,6 +48,9 @@
         <source>
   Angular Task
 </source>
+<target>
+  Tarea Anular
+</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/core/components/logo/logo.component.html</context>
           <context context-type="linenumber">1</context>
@@ -43,6 +60,7 @@
       </trans-unit>
       <trans-unit id="catalogDataError" datatype="html">
         <source>No data. Feel free to add new course</source>
+        <target>No hay datos. No dude en añadir un nuevo curso</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/catalog/components/catalog/catalog.component.html</context>
           <context context-type="linenumber">13</context>
@@ -51,6 +69,7 @@
       </trans-unit>
       <trans-unit id="buttonLoadMore" datatype="html">
         <source>Load more</source>
+        <target>Cargar más</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/catalog/components/catalog/catalog.component.html</context>
           <context context-type="linenumber">14</context>
@@ -59,6 +78,7 @@
       </trans-unit>
       <trans-unit id="itemFormTitle" datatype="html">
         <source>Title:</source>
+        <target>Titular</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/catalog/components/item-form/item-form.component.html</context>
           <context context-type="linenumber">4</context>
@@ -70,6 +90,7 @@
         <source>
             This field is required and max length 50 symbols
         </source>
+        <target>Se requiere este campo y 50 símbolos Max.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/catalog/components/item-form/item-form.component.html</context>
           <context context-type="linenumber">9</context>
@@ -79,6 +100,7 @@
       </trans-unit>
       <trans-unit id="itemFormDescription" datatype="html">
         <source>Description:</source>
+        <target>Descripci:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/catalog/components/item-form/item-form.component.html</context>
           <context context-type="linenumber">15</context>
@@ -90,6 +112,7 @@
         <source>
               This field is required and max length 500 symbols
           </source>
+          <target>Este campo es requerido y longitud máxima 500 símbolos</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/catalog/components/item-form/item-form.component.html</context>
           <context context-type="linenumber">25</context>
@@ -99,6 +122,7 @@
       </trans-unit>
       <trans-unit id="itemFormSaveButton" datatype="html">
         <source>Save</source>
+        <target>Guardar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/catalog/components/item-form/item-form.component.html</context>
           <context context-type="linenumber">40</context>
@@ -108,6 +132,7 @@
       </trans-unit>
       <trans-unit id="itemFormCancelButton" datatype="html">
         <source>Cancel</source>
+        <target>Cancelar</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/catalog/components/item-form/item-form.component.html</context>
           <context context-type="linenumber">46</context>
@@ -117,6 +142,7 @@
       </trans-unit>
       <trans-unit id="toolBoxSearchButton" datatype="html">
         <source>Add course</source>
+        <target>Añadir curso</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/catalog/components/toolbox/toolbox.component.html</context>
           <context context-type="linenumber">5</context>
@@ -126,6 +152,7 @@
       </trans-unit>
       <trans-unit id="itemFormDuration" datatype="html">
         <source>Duration:</source>
+        <target>Duración:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/catalog/components/form-duration/form-duration.component.html</context>
           <context context-type="linenumber">4</context>
@@ -136,6 +163,7 @@
         <source>
           This field is required and must be only numbers
       </source>
+      <target>Este campo es necesario y debe ser sólo números</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/catalog/components/form-duration/form-duration.component.html</context>
           <context context-type="linenumber">14</context>
@@ -145,6 +173,7 @@
       </trans-unit>
       <trans-unit id="itemFormDate" datatype="html">
         <source>Date:</source>
+        <target>Fecha:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/catalog/components/form-date/form-date.component.html</context>
           <context context-type="linenumber">3</context>
@@ -155,6 +184,7 @@
         <source>
         This field is required and must be format mm/dd/yyyy
     </source>
+    <target>Este campo es obligatorio y debe tener el formato mm / dd / AAAA</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/catalog/components/form-date/form-date.component.html</context>
           <context context-type="linenumber">15</context>
@@ -164,6 +194,7 @@
       </trans-unit>
       <trans-unit id="itemFormAuthors" datatype="html">
         <source>Authors:</source>
+        <target>Autores:</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/catalog/components/form-authors/form-authors.component.html</context>
           <context context-type="linenumber">3</context>
@@ -174,6 +205,7 @@
         <source>
       This field is required and must have min 1 author
     </source>
+    <target>Este campo es obligatorio y debe ser min. 1 autor</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/catalog/components/form-authors/form-authors.component.html</context>
           <context context-type="linenumber">18</context>

@@ -3,17 +3,21 @@
     <h2 class="title">Auth</h2>
     <div class="line"></div>
     <form [formGroup]="authForm" class="form" (submit)="auth()">
-      <label>
+      <label i18n="Login label in Auth@@authLabelLogin">
         Login:
         <input [ngClass]="controls.login.errors? 'validation-error' : ''" type="text" [formControl]="loginControl" name="login">
-        <div class="validation-block" *ngIf="controls.login.errors && controls.login.touched">
+        <div 
+          class="validation-block" 
+          *ngIf="controls.login.errors && controls.login.touched">
           This field is required
         </div>
       </label>
-      <label>
+      <label i18n="Password label in Auth@@authLabelPassword">
           Password:
           <input [ngClass]="controls.password.errors? 'validation-error' : ''" type="password" [formControl]="passwordControl" name="password">
-          <div class="validation-block" *ngIf="controls.password.errors && controls.password.touched">
+          <div 
+            class="validation-block" 
+            *ngIf="controls.password.errors && controls.password.touched" >
             This field is required
           </div>
       </label>

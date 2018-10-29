@@ -65,7 +65,6 @@ export class CourseEffects {
       ofType(COURSE_ACTIONS.FETCH_AUTHORS),
       switchMap((action: FetchAuthors) => {
           const { textFragment } = action.payload;
-          console.log(textFragment);
           return this.authorService.getAuthors(textFragment)
               .pipe(
                   map((authors: IAuthor[]) => {

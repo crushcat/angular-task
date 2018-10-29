@@ -1,7 +1,7 @@
 <form class="form">
   <label>
     <h3 i18n="Course authors@@itemFormAuthors">Authors:</h3>
-    <div class="authors-block">
+    <div [ngClass]="authorsControl.errors? 'validation-error' : ''" class="authors-block">
         <ul class="tags-authors">
           <li (click)="delete(item)" *ngFor="let item of choosedAuthors">{{item.name}}</li>
         </ul>
@@ -12,8 +12,11 @@
         name="authors"
         maxlength="30">
     </div>
-    <div class="validation-block" *ngIf="authorsControl.errors && authorsControl.touched">
-        {{ authorsControl.errors.length || authorsControl.errors.authors}}
+    <div 
+      class="validation-block" 
+      *ngIf="authorsControl.errors"
+      i18n="Validation error|Validation error in authors@@validationErrorAuthors">
+      This field is required and must have min 1 author
     </div>
   </label>
   <div class="authors-list" *ngIf="authorsControl.value">

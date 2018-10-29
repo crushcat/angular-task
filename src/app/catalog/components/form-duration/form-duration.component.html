@@ -8,8 +8,11 @@
         (change)="onChange($event.target.value)" 
         type="text" 
         name="duration">
-      <div class="validation-block" *ngIf="lengthControl.errors && lengthControl.touched">
-          {{ lengthControl.errors.required || lengthControl.errors.length }}
+      <div 
+        class="validation-block" 
+        *ngIf="lengthControl.errors && lengthControl.touched"
+        i18n="Validation error|Validation error in length@@validationErrorLength">
+          This field is required and must be only numbers
       </div>
     </label>
   </form>

@@ -9,7 +9,7 @@ enum Course {
   description = 'Description',
   date = '1999-02-24',
   length = '0',
-  authors = 'Some authors'
+  authors = ''
 }
 
 @Component({

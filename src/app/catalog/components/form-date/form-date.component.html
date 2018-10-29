@@ -9,8 +9,11 @@
       name="creationDate"
       [ngClass]="dateControl.errors? 'validation-error' : ''"
     >
-    <div class="validation-block" *ngIf="dateControl.errors && dateControl.touched">
-      {{ dateControl.errors.require || dateControl.errors.date }}
+    <div 
+      class="validation-block" 
+      *ngIf="dateControl.errors && dateControl.touched"
+      i18n="Validation error|Validation error in date@@validationErrorDate">
+        This field is required and must be format mm/dd/yyyy
     </div>
   </label>
 </form>

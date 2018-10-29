@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription, Subject } from 'rxjs';
 import { FetchAuthors } from '../../state/actions';
 import { debounceTime } from 'rxjs/operators';
+import { IAuthor } from '../../interfaces/authors.model';
 
 export const FORM_AUTHORS_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -20,22 +21,20 @@ export const FORM_AUTHORS_VALUE_ACCESSOR: any = {
 export class FormAuthorsComponent implements ControlValueAccessor, OnDestroy {
   onChange: any = () => {};
   onTouched: any = () => {};
+  $searchSubject: Subject<string> = new Subject();
+  public choosedAuthors = [];
+  public authorsSub: Subscription;
+  public authorsList: IAuthor[] = [];
 
   private lengthValidation = (control: AbstractControl): ValidationErrors => {
     if (control.value.length < 3) return { length: 'Min length should be min 3 symbols' };
     return null;
   }
-
   private authorsValidation = (control: AbstractControl): ValidationErrors => {
-    if (!this.authorsList || !this.authorsList.length) return { authors: 'Authors must be!' };
+    if (!this.choosedAuthors || !this.choosedAuthors.length) return { authors: 'Authors must be!' };
     return null;
   }
-
-  $searchSubject: Subject<string> = new Subject();
   public authorsControl = new FormControl('', [this.lengthValidation, this.authorsValidation]);
-  public choosedAuthors = [];
-  public authorsSub: Subscription;
-  public authorsList: any;
 
   add(value) {
     const result = this.choosedAuthors.filter((author) => {

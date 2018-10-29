@@ -3,8 +3,11 @@
       <label>
         <h3 i18n="Title of course|The title of future course@@itemFormTitle">Title:</h3>
         <input [ngClass]="controls.title.errors? 'validation-error' : ''" type="text" name="title" [formControl]="titleControl">
-        <div class="validation-block" *ngIf="controls.title.errors && controls.title.touched">
-            {{ controls.title.errors.title || controls.title.errors.required }}
+        <div 
+          class="validation-block" 
+          *ngIf="controls.title.errors && controls.title.touched"
+          i18n="Validation error|Validation error in title@@validationErrorTitle">
+            This field is required and max length 50 symbols
         </div>
       </label>
 
@@ -16,8 +19,11 @@
             name="description" 
             [formControl]="descriptionControl"
           ></textarea>
-          <div class="validation-block" *ngIf="controls.description.errors && controls.description.touched">
-              {{ controls.description.errors.description || controls.description.errors.required }}
+          <div 
+            class="validation-block" 
+            *ngIf="controls.description.errors && controls.description.touched"
+            i18n="Validation error|Validation error in description@@validationErrorDescription">
+              This field is required and max length 500 symbols
           </div>
       </label>
 

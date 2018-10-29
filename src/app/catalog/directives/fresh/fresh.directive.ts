@@ -1,31 +1,28 @@
-import { Directive, ElementRef, Input, Renderer2, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, Renderer2, OnChanges } from '@angular/core';
 
 @Directive({
   selector: '[atFresh]'
 })
-export class FreshDirective implements OnInit {
+export class FreshDirective implements OnChanges {
   @Input('atFresh') creationDate: number;
 
   constructor(private el: ElementRef, private renderer: Renderer2) { }
 
-  ngOnInit() {
-    const currentDate: number = Date.now();
-    const enspirationDate = this.creationDate + (14 * 24 * 60 * 60 * 1000);
-
-    if(this.creationDate < enspirationDate && enspirationDate >= currentDate) {
+  ngOnChanges() {
+    const enspirationPeriod = (14 * 24 * 60 * 60 * 1000);
+    const creationDate = new Date(this.creationDate);
+    const enspirationDate = creationDate.valueOf() + enspirationPeriod;
+    if(creationDate.valueOf() < enspirationDate && enspirationDate >= Date.now()) {
       this.setBorderColor('#BADA55');
-    }
-    if(this.creationDate > currentDate) {
+    } // enspirated
+    if(creationDate.valueOf() > Date.now()) {
       this.setBorderColor('#3893E8');
-    }
+    } // upcoming
   }
 
   setBorderColor(color: string) {
+    
     this.renderer.setStyle(this.el.nativeElement.querySelector('.item'), 'border-color', color);
   }
 
 }
-
-
-//If creationDate < currentDate && creationDate >= currentDate - 14days
-
