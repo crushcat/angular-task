@@ -1,15 +1,15 @@
 <div class="form-container">
   <form class="form" (submit)="save()" [formGroup]="itemForm">
       <label>
-        <h3>Title:</h3>
+        <h3 i18n="Title of course|The title of future course@@itemFormTitle">Title:</h3>
         <input [ngClass]="controls.title.errors? 'validation-error' : ''" type="text" name="title" [formControl]="titleControl">
         <div class="validation-block" *ngIf="controls.title.errors && controls.title.touched">
-          Title is require and max length 50 symbols
+            {{ controls.title.errors.title || controls.title.errors.required }}
         </div>
       </label>
 
       <label>
-          <h3>Description:</h3>
+          <h3 i18n="Description of course|The Description of future course@@itemFormDescription">Description:</h3>
           <textarea 
             [ngClass]="controls.description.errors? 'validation-error' : ''"
             type="text" 
@@ -17,7 +17,7 @@
             [formControl]="descriptionControl"
           ></textarea>
           <div class="validation-block" *ngIf="controls.description.errors && controls.description.touched">
-            Description is require and max length 500 symbols
+              {{ controls.description.errors.description || controls.description.errors.required }}
           </div>
       </label>
 
@@ -26,8 +26,18 @@
       <at-form-authors [formControl]="authorsControl"></at-form-authors>
 
       <div class="button-box">
-        <button [disabled]="itemForm.invalid" type="submit" class='btn btn-save'>Save</button>
-        <button type="button" (click)="cancel()" class='btn btn-cancel'>Cancel</button>
+        <button 
+          [disabled]="itemForm.invalid" 
+          type="submit" 
+          class='btn btn-save' 
+          i18n="Save button|Button which save courses@@itemFormSaveButton"
+          >Save</button>
+        <button 
+          type="button" 
+          (click)="cancel()" 
+          class='btn btn-cancel'
+          i18n="Cancel button|Button which cancel saving courses@@itemFormCancelButton"
+          >Cancel</button>
       </div>
   </form>
 </div>

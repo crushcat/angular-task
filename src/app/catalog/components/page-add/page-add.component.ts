@@ -18,7 +18,7 @@ enum Course {
   styleUrls: ['./page-add.component.scss']
 })
 export class PageAddComponent {
-  course = Course;
+  public course = Course;
 
   save(newCourse: ICourse) {
     this.store.dispatch(new AddAction({newCourse}));

@@ -22,7 +22,7 @@ export class FormDurationComponent implements ControlValueAccessor {
     return null;
   }
 
-  private lengthControl = new FormControl('', [Validators.required, this.lengthValidation]);
+  public lengthControl = new FormControl('', [Validators.required, this.lengthValidation]);
 
   get value() {
     return this.lengthControl.value;

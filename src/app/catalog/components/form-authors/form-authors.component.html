@@ -1,6 +1,6 @@
 <form class="form">
   <label>
-    <h3>Authors:</h3>
+    <h3 i18n="Course authors@@itemFormAuthors">Authors:</h3>
     <div class="authors-block">
         <ul class="tags-authors">
           <li (click)="delete(item)" *ngFor="let item of choosedAuthors">{{item.name}}</li>
@@ -12,9 +12,11 @@
         name="authors"
         maxlength="30">
     </div>
-
+    <div class="validation-block" *ngIf="authorsControl.errors && authorsControl.touched">
+        {{ authorsControl.errors.length || authorsControl.errors.authors}}
+    </div>
   </label>
-  <div *ngIf="authorsControl.value">
+  <div class="authors-list" *ngIf="authorsControl.value">
     <div (click)="add(item)" *ngFor="let item of authorsList">{{ item.name }}</div>
   </div>
 </form>

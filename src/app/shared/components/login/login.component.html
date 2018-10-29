@@ -4,12 +4,18 @@
     <div class="line"></div>
     <form [formGroup]="authForm" class="form" (submit)="auth()">
       <label>
-        Login: *required
-        <input type="text" [formControl]="loginControl" name="login" required>
+        Login:
+        <input [ngClass]="controls.login.errors? 'validation-error' : ''" type="text" [formControl]="loginControl" name="login">
+        <div class="validation-block" *ngIf="controls.login.errors && controls.login.touched">
+          This field is required
+        </div>
       </label>
       <label>
-          Password: *required
-          <input type="password" [formControl]="passwordControl" name="password" required>
+          Password:
+          <input [ngClass]="controls.password.errors? 'validation-error' : ''" type="password" [formControl]="passwordControl" name="password">
+          <div class="validation-block" *ngIf="controls.password.errors && controls.password.touched">
+            This field is required
+          </div>
       </label>
       <button type="submit" class="btn btn-login">Login</button>
     </form>

@@ -1,9 +1,8 @@
 import { Component, forwardRef, OnDestroy } from '@angular/core';
-import { FormControl, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { FormControl, NG_VALUE_ACCESSOR, ControlValueAccessor, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription, Subject } from 'rxjs';
 import { FetchAuthors } from '../../state/actions';
-import { IAuthor } from '../../interfaces/authors.model';
 import { debounceTime } from 'rxjs/operators';
 
 export const FORM_AUTHORS_VALUE_ACCESSOR: any = {
@@ -21,8 +20,19 @@ export const FORM_AUTHORS_VALUE_ACCESSOR: any = {
 export class FormAuthorsComponent implements ControlValueAccessor, OnDestroy {
   onChange: any = () => {};
   onTouched: any = () => {};
+
+  private lengthValidation = (control: AbstractControl): ValidationErrors => {
+    if (control.value.length < 3) return { length: 'Min length should be min 3 symbols' };
+    return null;
+  }
+
+  private authorsValidation = (control: AbstractControl): ValidationErrors => {
+    if (!this.authorsList || !this.authorsList.length) return { authors: 'Authors must be!' };
+    return null;
+  }
+
   $searchSubject: Subject<string> = new Subject();
-  private authorsControl = new FormControl('');
+  public authorsControl = new FormControl('', [this.lengthValidation, this.authorsValidation]);
   public choosedAuthors = [];
   public authorsSub: Subscription;
   public authorsList: any;
@@ -36,7 +46,7 @@ export class FormAuthorsComponent implements ControlValueAccessor, OnDestroy {
   }
 
   search(value) {
-    if(value.length > 3 || !value.length) {
+    if(value.length > 3) {
       this.$searchSubject.next(value);
    }
   }
@@ -79,7 +89,6 @@ export class FormAuthorsComponent implements ControlValueAccessor, OnDestroy {
     this.authorsSub = this.store
         .select((state) => state.course.authors)
         .subscribe((authors) => {
-          console.log(authors);
           this.authorsList = authors;
         });
 

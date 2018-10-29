@@ -10,6 +10,6 @@
             [atFresh]="course.date"
         ></at-item>
     </div>
-    <div *ngIf="!courseList.length" class="container-error" >No data. Feel free to add new course</div>
-    <button (click)="loadMore()" class='btn'>Load more</button>
+    <div *ngIf="!courseList.length" class="container-error" i18n="Data error in catalog@@catalogDataError">No data. Feel free to add new course</div>
+    <button (click)="loadMore()" i18n="Button load more@@buttonLoadMore" class='btn'>Load more</button>
 </main>

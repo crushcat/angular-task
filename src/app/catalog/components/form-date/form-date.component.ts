@@ -21,7 +21,7 @@ export class FormDateComponent implements ControlValueAccessor {
     return null;
   }
 
-  private dateControl = new FormControl('', [Validators.required, this.dateValidation]);
+  public dateControl = new FormControl('', [Validators.required, this.dateValidation]);
 
   get value() {
     return this.dateControl.value;

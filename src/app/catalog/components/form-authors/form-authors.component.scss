@@ -34,4 +34,14 @@
         }
     }
 
+    .authors-list {
+        @include flexbox(column, flex-start, flex-start);
+        width: 300px;
+        height: 50px;
+        overflow: auto;
+        border: 2px solid $first-color;
+        border-radius: 6px;
+        margin-bottom: 30px;
+    }
+
 }

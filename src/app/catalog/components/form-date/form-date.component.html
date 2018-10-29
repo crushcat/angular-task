@@ -1,6 +1,6 @@
 <form class="form">
   <label>
-    <h3>Date:</h3>
+    <h3 i18n="Course date@@itemFormDate">Date:</h3>
     <input 
       [formControl]="dateControl"
       [value]="dateControl.value | date:'yyyy-MM-dd'"
@@ -10,7 +10,7 @@
       [ngClass]="dateControl.errors? 'validation-error' : ''"
     >
     <div class="validation-block" *ngIf="dateControl.errors && dateControl.touched">
-      Date is require and must be format like mm/dd/yyyy
+      {{ dateControl.errors.require || dateControl.errors.date }}
     </div>
   </label>
 </form>

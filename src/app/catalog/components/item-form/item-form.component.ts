@@ -14,7 +14,7 @@ export class ItemFormComponent implements OnInit {
   public itemForm: FormGroup;
 
   private titleValidation = (control: AbstractControl): ValidationErrors => {
-    if (control.value.length > 50) return { error: 'Max length 50 symbols' };
+    if (control.value.length > 50) return { title: 'Max length 50 symbols' };
     return null;
   }
 
@@ -55,7 +55,6 @@ export class ItemFormComponent implements OnInit {
     this.authorsControl.setValue(this.course.authors);
 
     this.itemForm.valueChanges.subscribe(() => {
-      console.log(this.itemForm.value.authors);
       this.course.name = this.itemForm.value.title;
       this.course.description = this.itemForm.value.description;
       this.course.date = new Date(Date.parse(this.itemForm.value.date));

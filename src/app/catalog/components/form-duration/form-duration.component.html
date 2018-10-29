@@ -1,7 +1,7 @@
 <div class="container">
   <form class="form">
     <label>
-      <h3>Duration:</h3>
+      <h3 i18n="Course duration@@itemFormDuration">Duration:</h3>
       <input 
         [formControl]="lengthControl" 
         [ngClass]="lengthControl.errors ? 'validation-error' : ''"
@@ -9,7 +9,7 @@
         type="text" 
         name="duration">
       <div class="validation-block" *ngIf="lengthControl.errors && lengthControl.touched">
-          Length is require and must be only numbers
+          {{ lengthControl.errors.required || lengthControl.errors.length }}
       </div>
     </label>
   </form>

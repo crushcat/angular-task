@@ -13,11 +13,11 @@ import { LoadAction, DeleteAction } from '../../state/actions';
   providers: [SearchPipe],
 })
 export class CatalogComponent implements OnInit, OnDestroy {
-  coursesListSub: Subscription;
-  courseList: ICourse[] = [];
-  backupList: ICourse[];
-  title: string = 'Courses';
-  pageNumbers: number = 1;
+  public coursesListSub: Subscription;
+  public courseList: ICourse[] = [];
+  public backupList: ICourse[];
+  public title: string = 'Courses';
+  public pageNumbers: number = 1;
 
   loadMore() {
     this.pageNumbers++;

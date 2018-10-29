@@ -12,7 +12,7 @@ import { FormControl } from '@angular/forms';
 export class ToolboxComponent {
   @Output() searchEventField: EventEmitter<string> = new EventEmitter();
   $searchSubject: Subject<string> = new Subject();
-  private searchControl = new FormControl('');
+  public searchControl = new FormControl('');
 
   search(value) {
     if(value.length > 3 || !value.length) {

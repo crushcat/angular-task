@@ -28,6 +28,14 @@
             "scripts": []
           },
           "configurations": {
+            "au": {
+              "aot": true,
+              "outputPath": "dist/angular-task/",
+              "i18nFile": "src/assets/locale/messages.au.xlf",
+              "i18nFormat": "xlf",
+              "i18nLocale": "en-AU",
+              "i18nMissingTranslation": "error"
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -53,6 +61,9 @@
             "browserTarget": "angular-task:build"
           },
           "configurations": {
+            "au": {
+              "browserTarget": "angular-task:build:au"
+            },
             "production": {
               "browserTarget": "angular-task:build:production"
             }
