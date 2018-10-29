@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { FormAuthorsComponent } from './form-authors.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
 
 describe('FormAuthorsComponent', () => {
   let component: FormAuthorsComponent;
@@ -8,7 +9,12 @@ describe('FormAuthorsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormAuthorsComponent ]
+      imports: [
+        ReactiveFormsModule, 
+        FormsModule,
+        StoreModule.forRoot({}),
+      ],
+      declarations: [ FormAuthorsComponent]
     })
     .compileComponents();
   }));

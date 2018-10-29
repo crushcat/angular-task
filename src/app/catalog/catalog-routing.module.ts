@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CatalogComponent } from './components/catalog/catalog.component';
-import { ItemFormComponent } from './components/item-form/item-form.component';
 import { PageAddComponent } from './components/page-add/page-add.component';
 import { PageEditComponent } from './components/page-edit/page-edit.component';
 
