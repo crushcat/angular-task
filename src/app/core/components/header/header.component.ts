@@ -8,8 +8,8 @@ import { AuthService } from '../../services/authService/auth.service';
 })
 export class HeaderComponent { 
   isAuth(): boolean {
-    return this._authService.IsAuthenticated();
+    return this.authService.IsAuthenticated();
   }
   
-  constructor(private _authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 }

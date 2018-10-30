@@ -21,7 +21,6 @@ export class FreshDirective implements OnChanges {
   }
 
   setBorderColor(color: string) {
-    
     this.renderer.setStyle(this.el.nativeElement.querySelector('.item'), 'border-color', color);
   }
 

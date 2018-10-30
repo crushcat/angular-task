@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { LoadingService } from '../../services/loadingService/loading.service';
 import { Subscription } from 'rxjs';
 
@@ -7,17 +7,18 @@ import { Subscription } from 'rxjs';
   templateUrl: './loading-block.component.html',
   styleUrls: ['./loading-block.component.scss']
 })
-export class LoadingBlockComponent implements OnInit {
-  public $isLoading: Subscription;
+export class LoadingBlockComponent implements OnDestroy {
+  public isLoadingSub: Subscription;
   public isLoading: boolean = false;
 
-  ngOnInit() {
-    this.$isLoading = this.loadingService
-        .get()
-        .subscribe((item) => {
-          this.isLoading = item;
-        });
+  ngOnDestroy() {
   }
 
-  constructor(private loadingService: LoadingService) { }
+  constructor(private loadingService: LoadingService) {
+    this.isLoadingSub = this.loadingService
+    .get()
+    .subscribe((item) => {
+      this.isLoading = item;
+    });
+   }
 }

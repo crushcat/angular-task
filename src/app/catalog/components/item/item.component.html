@@ -1,4 +1,4 @@
-<div class="item" *ngIf="course" [ngClass]="course.isTopRated? 'top' : null">
+<div class="item" [ngClass]="course.isTopRated? 'top' : null">
   <div class="info">
     <header class="info-header">
       <h2>{{course.name| uppercase}}<span *ngIf="course.isTopRated">☆</span></h2>

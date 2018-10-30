@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../services/authService/auth.service';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { IAuthState } from '../../state/models';
 import { LogoutAction } from '../../state/actions';
+import { IAppState } from 'src/app/app.state';
 
 @Component({
   selector: 'at-session',
@@ -15,7 +15,7 @@ export class SessionComponent implements OnInit, OnDestroy {
   username: string;
 
   ngOnInit() {
-    this.userInfoSub = this._authService
+    this.userInfoSub = this.authService
                            .getUserInfo()
                            .subscribe((data) => {
                               this.username = data.login;
@@ -31,7 +31,7 @@ export class SessionComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private _authService: AuthService,
-    private store: Store<IAuthState>
+    private authService: AuthService,
+    private store: Store<IAppState>
   ) {}
 }
