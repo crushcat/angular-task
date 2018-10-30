@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IUser } from '../../interfaces'
 import { Subscription, Observable } from 'rxjs';
-import { IAuthState } from '../../state/models';
 import { Store } from '@ngrx/store';
 
 const SERVER_URL = "http://localhost:3004/auth";
@@ -27,11 +26,14 @@ export class AuthService {
     return this.http.post<IUser>(`${SERVER_URL}/userinfo`, {token});
   }
 
+  getToken() {
+    return this.token;
+  }
+
   constructor(
     private http: HttpClient,
     private store: Store<any>
     ) {
-      
       this.tokenSub = this.store
       .select(state => state.auth.token)
       .subscribe((newToken) => {
