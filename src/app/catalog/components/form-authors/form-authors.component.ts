@@ -1,5 +1,5 @@
 import { Component, forwardRef, OnDestroy } from '@angular/core';
-import { FormControl, NG_VALUE_ACCESSOR, ControlValueAccessor, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormControl, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription, Subject } from 'rxjs';
 import { FetchAuthors } from '../../state/actions';
@@ -21,33 +21,20 @@ export const FORM_AUTHORS_VALUE_ACCESSOR: any = {
 export class FormAuthorsComponent implements ControlValueAccessor, OnDestroy {
   onChange: any = () => {};
   onTouched: any = () => {};
-  $searchSubject: Subject<string> = new Subject();
+  public $searchSubject: Subject<string> = new Subject();
   public choosedAuthors = [];
   public authorsSub: Subscription;
   public authorsList: IAuthor[] = [];
-
-  private lengthValidation = (control: AbstractControl): ValidationErrors => {
-    if (control.value.length < 3) return { length: 'Min length should be min 3 symbols' };
-    return null;
-  }
-  private authorsValidation = (control: AbstractControl): ValidationErrors => {
-    if (!this.choosedAuthors || !this.choosedAuthors.length) return { authors: 'Authors must be!' };
-    return null;
-  }
-  public authorsControl = new FormControl('', [this.lengthValidation, this.authorsValidation]);
+  public authorsControl = new FormControl('');
 
   add(value) {
     const result = this.choosedAuthors.filter((author) => {
       return author.name == value.name;
-    })
-    if (!result.length) this.choosedAuthors = [...this.choosedAuthors, value];
-    this.onChange(this.choosedAuthors);
-  }
-
-  search(value) {
-    if(value.length > 3) {
-      this.$searchSubject.next(value);
-   }
+    }) // Is there the same author in array
+    if (!result.length) {
+      this.choosedAuthors = [...this.choosedAuthors, value]; // if not
+      this.onChange(this.choosedAuthors); 
+    }
   }
 
   delete(item: string) {
@@ -57,6 +44,18 @@ export class FormAuthorsComponent implements ControlValueAccessor, OnDestroy {
     this.onChange(this.choosedAuthors);
   }
 
+  registerOnChange(fn) {
+    this.onChange = fn;
+  }
+
+  writeValue(value) {
+    this.choosedAuthors = [...value];
+  }
+
+  registerOnTouched(fn) {
+    this.onTouched = fn;
+  }
+
   get value() {
     return this.choosedAuthors;
   }
@@ -64,18 +63,6 @@ export class FormAuthorsComponent implements ControlValueAccessor, OnDestroy {
   set value(value) {
     this.onChange(value);
     this.onTouched();
-  }
-
-  registerOnChange(fn) {
-    this.onChange = fn;
-  }
-
-  writeValue(value) {
-    if (Array.isArray(value)) this.choosedAuthors = [...value];
-  }
-
-  registerOnTouched(fn) {
-    this.onTouched = fn;
   }
 
   ngOnDestroy() {
@@ -98,7 +85,9 @@ export class FormAuthorsComponent implements ControlValueAccessor, OnDestroy {
         });
 
     this.authorsControl.valueChanges.subscribe(textFragment => {
-      this.search(textFragment);
+      if(textFragment.length) {
+        this.$searchSubject.next(textFragment);
+      }
     });    
   }
 

@@ -27,8 +27,8 @@ export class ItemFormComponent implements OnInit {
 
   public titleControl = new FormControl('', [Validators.required, this.titleValidation]);
   public descriptionControl = new FormControl('', [Validators.required, this.descriptionValidation]);
-  public dateControl = new FormControl('');
-  public lengthControl = new FormControl('');
+  public dateControl = new FormControl('', [Validators.required]);
+  public lengthControl = new FormControl('', [Validators.required]);
   public authorsControl = new FormControl('', [Validators.required]);
 
   save() {

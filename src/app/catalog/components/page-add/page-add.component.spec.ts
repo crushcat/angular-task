@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PageAddComponent } from './page-add.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('PageSaveComponent', () => {
   let component: PageAddComponent;
@@ -8,7 +11,9 @@ describe('PageSaveComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PageAddComponent ]
+      imports: [RouterTestingModule.withRoutes([]), StoreModule.forRoot({})],
+      declarations: [ PageAddComponent ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   }));

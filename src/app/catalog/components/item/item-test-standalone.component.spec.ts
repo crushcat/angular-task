@@ -4,6 +4,7 @@ import { ICourse } from '../../interfaces';
 import { Course } from '../../entites';
 
 import { ItemComponent } from './item.component';
+import { DurationPipe } from '../../pipes/duration/duration.pipe';
 
 const mockCourse: ICourse = new Course({
   id: 0,
@@ -21,7 +22,7 @@ describe('ItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ItemComponent ]
+      declarations: [ ItemComponent, DurationPipe ]
     })
     .compileComponents();
   }));
@@ -29,20 +30,12 @@ describe('ItemComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ItemComponent);
     component = fixture.componentInstance;
+    component.course = mockCourse;
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('@Input and binding works', () => {
-    component.course = mockCourse;
-    fixture.detectChanges();
-  
-    const nativeElement = fixture.nativeElement;
-    const title: HTMLElement = nativeElement.querySelector("h2");
-    expect(title.textContent).toBe("Webpack");
   });
 
 });

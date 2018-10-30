@@ -5,8 +5,9 @@ import { Course } from '../../entites';
 import {By} from '@angular/platform-browser';
 
 import { ItemComponent } from './item.component';
+import { DurationPipe } from '../../pipes/duration/duration.pipe';
 
-const mockCourse: ICourse = new Course({
+const mockCourse: ICourse = {
   id: 0,
   name: 'Webpack',
   date: new Date(),
@@ -14,7 +15,7 @@ const mockCourse: ICourse = new Course({
   description: 'Test',
   authors: [{id: 0, name: 'Test'}],
   isTopRated: false
-});
+};
 
 @Component({
   selector: 'at-test-component',
@@ -40,7 +41,7 @@ describe('Test ItemComponent\'s @output with TestHostComponent', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-        declarations: [ TestHostComponent, ItemComponent ]
+        declarations: [ TestHostComponent, ItemComponent, DurationPipe ]
         })
     }));
 
@@ -49,12 +50,22 @@ describe('Test ItemComponent\'s @output with TestHostComponent', () => {
         testHost = fixture.componentInstance;
     });
 
+    it('@Input works!', () => {
+      testHost.course = mockCourse;
+      fixture.detectChanges();
+      const title = fixture.debugElement.query(By.css('h2')).nativeElement;
+      expect(title.textContent).toBe("WEBPACK");
+
+      const button = fixture.debugElement.query(By.css('.btn-delete'));
+      button.triggerEventHandler('click', null);
+      expect(testHost.recieveData).toEqual(mockCourse.id);
+  });
+
     it('@Output works!', () => {
         testHost.course = mockCourse;
         fixture.detectChanges();
 
         const button = fixture.debugElement.query(By.css('.btn-delete'));
-        //const button = nativeElement.querySelector(".btn-delete");
         button.triggerEventHandler('click', null);
         expect(testHost.recieveData).toEqual(mockCourse.id);
     });

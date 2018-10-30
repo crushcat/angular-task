@@ -5,6 +5,7 @@ import { Router } from '@angular/router'
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { LoadAction, DeleteAction } from '../../state/actions';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'at-catalog',
@@ -16,7 +17,7 @@ export class CatalogComponent implements OnInit, OnDestroy {
   public coursesListSub: Subscription;
   public courseList: ICourse[] = [];
   public backupList: ICourse[];
-  public title: string = 'Courses';
+  public title: string;
   public pageNumbers: number = 1;
 
   loadMore() {
@@ -24,18 +25,18 @@ export class CatalogComponent implements OnInit, OnDestroy {
     this.loadCourses();
   }
 
-  editCourse(data) {
-    this.router.navigateByUrl(`catalog/${data}`);
+  editCourse(courseId: number) {
+    this.router.navigateByUrl(`catalog/${courseId}`);
   }
 
-  deleteCourse(id) {
+  deleteCourse(id: number) {
     const result: boolean = window.confirm("Are you sure?");
     if(result) this.store.dispatch(new DeleteAction({id}));
   }
 
-  search(data) {
-    if(!data) this.courseList = [...this.backupList];
-    this.loadCourses(data);
+  search(textFragment: string) {
+    if(!textFragment) this.courseList = [...this.backupList];
+    this.loadCourses(textFragment);
   }
 
   loadCourses(textFragment?: string) {
@@ -53,8 +54,10 @@ export class CatalogComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store<any>,
-    private router: Router
+    private router: Router,
+    private location: Location
     ) { 
+      this.title = this.location.path().split('/')[1];
       this.coursesListSub = this.store
       .select(state => state.course.courses)
       .subscribe((newCoursesList) => {

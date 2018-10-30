@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
 
 import { ToolboxComponent } from './toolbox.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ToolboxComponent', () => {
   let component: ToolboxComponent;
@@ -10,7 +10,7 @@ describe('ToolboxComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule ],
+      imports: [ FormsModule, ReactiveFormsModule, RouterTestingModule.withRoutes([])],
       declarations: [ ToolboxComponent ]
     })
     .compileComponents();

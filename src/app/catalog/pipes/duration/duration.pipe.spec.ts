@@ -11,7 +11,7 @@ describe('DurationPipe', () => {
     pipe = new DurationPipe();
   });
 
-  it('create an instance', () => {
+  it('Pipe transforms time', () => {
     const length = 60;
     const expected = '1h 0m';
     expect(pipe.transform(length)).toBe(expected);

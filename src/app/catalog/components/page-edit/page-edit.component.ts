@@ -42,7 +42,7 @@ export class PageEditComponent implements OnInit, OnDestroy {
           .subscribe((item) => {
             this.loader.set(false);
             this.course = item[0];
-            this.title = `Courses/${this.course.name}`;
+            this.title = `${this.location.path().split('/')[1]}/${this.course.name}`;
           }, (error: HttpErrorResponse) => console.error(error));
     });
   }
