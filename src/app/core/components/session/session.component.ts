@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../services/authService/auth.service';
-import { Observable } from 'rxjs';
-import { IUser } from '../../interfaces';
+import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { IAuthState } from '../../state/models';
 import { LogoutAction } from '../../state/actions';
@@ -11,19 +10,24 @@ import { LogoutAction } from '../../state/actions';
   templateUrl: './session.component.html',
   styleUrls: ['./session.component.scss']
 })
-export class SessionComponent implements OnInit {
-  $username: Observable<IUser>;
+export class SessionComponent implements OnInit, OnDestroy {
+  userInfoSub: Subscription;
   username: string;
 
   ngOnInit() {
-    this.$username = this._authService.getUserInfo();
-    this.$username.subscribe((data) => {
-      this.username = data.login;
-    });
+    this.userInfoSub = this._authService
+                           .getUserInfo()
+                           .subscribe((data) => {
+                              this.username = data.login;
+                           });
   }
 
   logout() {
     this.store.dispatch(new LogoutAction());
+  }
+
+  ngOnDestroy() {
+    this.userInfoSub.unsubscribe();
   }
 
   constructor(
