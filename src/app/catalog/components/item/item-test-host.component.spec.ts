@@ -55,11 +55,7 @@ describe('Test ItemComponent\'s @output with TestHostComponent', () => {
       fixture.detectChanges();
       const title = fixture.debugElement.query(By.css('h2')).nativeElement;
       expect(title.textContent).toBe("WEBPACK");
-
-      const button = fixture.debugElement.query(By.css('.btn-delete'));
-      button.triggerEventHandler('click', null);
-      expect(testHost.recieveData).toEqual(mockCourse.id);
-  });
+   });
 
     it('@Output works!', () => {
         testHost.course = mockCourse;

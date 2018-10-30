@@ -16,7 +16,7 @@ export class ItemComponent {
     this.editCourseEvent.emit(this.course.id);
   }
 
-  cancel() {
+  delete() {
     this.deleteCourseEvent.emit(this.course.id);
   }
 

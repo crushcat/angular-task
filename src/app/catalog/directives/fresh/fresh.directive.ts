@@ -4,13 +4,13 @@ import { Directive, ElementRef, Input, Renderer2, OnChanges } from '@angular/cor
   selector: '[atFresh]'
 })
 export class FreshDirective implements OnChanges {
-  @Input('atFresh') creationDate: number;
+  @Input('atFresh') date: number;
 
   constructor(private el: ElementRef, private renderer: Renderer2) { }
 
   ngOnChanges() {
     const enspirationPeriod = (14 * 24 * 60 * 60 * 1000);
-    const creationDate = new Date(this.creationDate);
+    const creationDate = new Date(this.date);
     const enspirationDate = creationDate.valueOf() + enspirationPeriod;
     if(creationDate.valueOf() < enspirationDate && enspirationDate >= Date.now()) {
       this.setBorderColor('#BADA55');
