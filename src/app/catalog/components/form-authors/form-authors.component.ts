@@ -2,7 +2,7 @@ import { Component, forwardRef, OnDestroy } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Subscription, Subject } from 'rxjs';
-import { FetchAuthors } from '../../state/actions';
+import { FetchAuthorsAction } from '../../state/actions';
 import { debounceTime } from 'rxjs/operators';
 import { IAuthor } from '../../interfaces/authors.model';
 
@@ -49,7 +49,7 @@ export class FormAuthorsComponent implements ControlValueAccessor, OnDestroy {
   }
 
   writeValue(value) {
-    this.choosedAuthors = [...value];
+    if (value) this.choosedAuthors = [...value];
   }
 
   registerOnTouched(fn) {
@@ -81,13 +81,11 @@ export class FormAuthorsComponent implements ControlValueAccessor, OnDestroy {
     this.$searchSubject
         .pipe(debounceTime(1000))
         .subscribe((textFragment) => {
-          this.store.dispatch(new FetchAuthors({textFragment}));
+          this.store.dispatch(new FetchAuthorsAction({textFragment}));
         });
 
     this.authorsControl.valueChanges.subscribe(textFragment => {
-      if(textFragment.length) {
-        this.$searchSubject.next(textFragment);
-      }
+      if(textFragment.length) this.$searchSubject.next(textFragment);
     });    
   }
 

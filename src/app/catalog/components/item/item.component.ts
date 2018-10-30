@@ -12,11 +12,12 @@ export class ItemComponent {
   @Output() editCourseEvent: EventEmitter<number> = new EventEmitter();
   @Output() deleteCourseEvent: EventEmitter<number> = new EventEmitter();
 
-  editCourse() {
+  save() {
     this.editCourseEvent.emit(this.course.id);
   }
 
-  deleteCourse() {
+  cancel() {
     this.deleteCourseEvent.emit(this.course.id);
   }
+
 }

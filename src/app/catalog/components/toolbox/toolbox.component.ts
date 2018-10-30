@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { FormControl } from '@angular/forms';
+import { FormControl, AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'at-toolbox',
@@ -12,10 +12,15 @@ import { FormControl } from '@angular/forms';
 export class ToolboxComponent {
   @Output() searchEventField: EventEmitter<string> = new EventEmitter();
   $searchSubject: Subject<string> = new Subject();
-  public searchControl = new FormControl('');
+
+  private lengthValidation = (control: AbstractControl): ValidationErrors => {
+    if (control.value.length <= 3 && control.value.length != 0) return { length: 'Min length should be min 3 symbols' };
+    return null;
+  }
+  public searchControl = new FormControl('', this.lengthValidation);
 
   search(value) {
-    if(value.length > 3 || !value.length) {
+    if(this.searchControl.valid) {
       this.$searchSubject.next(value);
    }
   }

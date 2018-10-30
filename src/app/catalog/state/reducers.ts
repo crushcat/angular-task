@@ -13,6 +13,11 @@ export function CourseReducer(state = defaultState, action: Actions): any {
                 ...state,
                 courses: action.payload.courses,
             };
+        case COURSE_ACTIONS.STORE_COURSE:
+            return {
+                ...state,
+                course: action.payload.course,
+            };
         case COURSE_ACTIONS.STORE_AUTHORS:
             return {
                 ...state,

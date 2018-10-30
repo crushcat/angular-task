@@ -4,8 +4,9 @@ import { SearchPipe } from '../../pipes/search/search.pipe';
 import { Router } from '@angular/router'
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { LoadAction, DeleteAction } from '../../state/actions';
+import { LoadCourseAction, DeleteCourseAction } from '../../state/actions';
 import { Location } from '@angular/common';
+import { IAppState } from 'src/app/app.state';
 
 @Component({
   selector: 'at-catalog',
@@ -31,7 +32,7 @@ export class CatalogComponent implements OnInit, OnDestroy {
 
   deleteCourse(id: number) {
     const result: boolean = window.confirm("Are you sure?");
-    if(result) this.store.dispatch(new DeleteAction({id}));
+    if(result) this.store.dispatch(new DeleteCourseAction({id}));
   }
 
   search(textFragment: string) {
@@ -41,7 +42,7 @@ export class CatalogComponent implements OnInit, OnDestroy {
 
   loadCourses(textFragment?: string) {
     const { pageNumbers } = this;
-    this.store.dispatch(new LoadAction({pageNumbers, textFragment}));
+    this.store.dispatch(new LoadCourseAction({pageNumbers, textFragment}));
   }
 
   ngOnInit() {
@@ -53,11 +54,11 @@ export class CatalogComponent implements OnInit, OnDestroy {
   }
 
   constructor(
-    private store: Store<any>,
+    private store: Store<IAppState>,
     private router: Router,
     private location: Location
     ) { 
-      this.title = this.location.path().split('/')[1];
+      this.title = this.location.path().split('/')[1]; // take url for title
       this.coursesListSub = this.store
       .select(state => state.course.courses)
       .subscribe((newCoursesList) => {

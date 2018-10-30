@@ -6,7 +6,7 @@ import { OrderByPipe } from '../../pipes/orderBy/order-by.pipe';
 import { StoreModule, Store } from '@ngrx/store';
 import { ICourse } from '../../interfaces';
 import { CourseReducer } from '../../state/reducers';
-import { LoadAction, StoreAction } from '../../state/actions';
+import { LoadCourseAction, StoreCoursesAction } from '../../state/actions';
 
 const mockCourses: ICourse[] = Array(3).fill({
   id: 0,
@@ -57,12 +57,12 @@ describe('CatalogComponent', () => {
   });
 
   it('should dispatch an action to load data when created', () => {
-    const action = new LoadAction({pageNumbers: 1, textFragment: undefined});
+    const action = new LoadCourseAction({pageNumbers: 1, textFragment: undefined});
     expect(store.dispatch).toHaveBeenCalledWith(action);
   });
 
   it('should display a list of items after the data is loaded', () => {
-    const action = new StoreAction({courses: mockCourses});
+    const action = new StoreCoursesAction({courses: mockCourses});
     store.dispatch(action);
     expect(component.courseList.length).toBe(3);
   });

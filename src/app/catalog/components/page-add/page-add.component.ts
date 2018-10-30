@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { ICourse } from '../../interfaces';
 import { Store } from '@ngrx/store';
-import { AddAction } from '../../state/actions';
+import { AddCourseAction } from '../../state/actions';
+import { IAppState } from 'src/app/app.state';
 
 enum Course {
   name = 'Example titile',
@@ -21,11 +22,7 @@ export class PageAddComponent {
   public course = Course;
 
   save(newCourse: ICourse) {
-    this.store.dispatch(new AddAction({newCourse}));
-    this.back();
-  }
-
-  cancel() {
+    this.store.dispatch(new AddCourseAction({newCourse}));
     this.back();
   }
 
@@ -34,7 +31,7 @@ export class PageAddComponent {
   }
 
   constructor(
-    private store: Store<any>,
+    private store: Store<IAppState>,
     private location: Location
     ) { }
 }
