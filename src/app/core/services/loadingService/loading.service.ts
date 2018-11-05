@@ -7,11 +7,11 @@ import { Subject } from 'rxjs';
 export class LoadingService {
   public $isLoad: Subject<boolean> = new Subject();
 
-  set(value: boolean): void {
+  public set(value: boolean): void {
     this.$isLoad.next(value);
   }
 
-  get(): Subject<boolean> {
+  public get(): Subject<boolean> {
     return this.$isLoad;
   }
 

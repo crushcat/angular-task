@@ -6,7 +6,7 @@ import { ICourse } from '../../interfaces';
 })
 export class OrderByPipe implements PipeTransform {
 
-  transform(value: ICourse[], key: string): ICourse[] {
+  public transform(value: ICourse[], key: string): ICourse[] {
     value.sort((a: ICourse, b: ICourse) => {
       return a[key] - b[key];
     });

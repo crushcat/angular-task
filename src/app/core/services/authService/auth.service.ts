@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IUser } from '../../interfaces'
+import { IUser } from '../../interfaces';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 
@@ -12,20 +12,20 @@ const SERVER_URL = "http://localhost:3004/auth";
 export class AuthService {
   token: string;
 
-  logIn(login: string, password: string) {
-    return this.http.post<any>(`${SERVER_URL}/login`,{login, password})
+  public logIn(login: string, password: string): Observable<IUser> {
+    return this.http.post<IUser>(`${SERVER_URL}/login`, {login, password});
   }
 
-  IsAuthenticated() : boolean {
+  public IsAuthenticated(): boolean {
     return !!this.token;
   }
 
-  getUserInfo(): Observable<IUser> {
+  public getUserInfo(): Observable<IUser> {
     const { token } = this;
     return this.http.post<IUser>(`${SERVER_URL}/userinfo`, {token});
   }
 
-  getToken() {
+  public getToken(): string {
     return this.token;
   }
 
@@ -37,6 +37,6 @@ export class AuthService {
           .select(state => state.auth.token)
           .subscribe((newToken) => {
             this.token = newToken;
-          })
+          });
     }
 }

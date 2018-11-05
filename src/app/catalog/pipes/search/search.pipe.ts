@@ -6,8 +6,8 @@ import { ICourse } from '../../interfaces';
 })
 export class SearchPipe implements PipeTransform {
 
-  transform(value: ICourse[], name: string): ICourse[] {
-    return name? value.filter((item) => item.name.toLocaleLowerCase() == name.toLocaleLowerCase()) : value;
+  public transform(value: ICourse[], name: string): ICourse[] {
+    return name ? value.filter((item) => item.name.toLocaleLowerCase() === name.toLocaleLowerCase()) : value;
   }
 
 }
