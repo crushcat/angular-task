@@ -1,5 +1,6 @@
 import { Component, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormGroup, FormControl, Validators, ValidationErrors, AbstractControl } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormControl, Validators } from '@angular/forms';
+import { CustomValidators } from '../../utils/validator';
 
 export const FORM_DURATION_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -14,35 +15,32 @@ export const FORM_DURATION_VALUE_ACCESSOR: any = {
   providers: [FORM_DURATION_VALUE_ACCESSOR]
 })
 export class FormDurationComponent implements ControlValueAccessor {
-  onChange: any = () => {};
-  onTouched: any = () => {};
+  public lengthControl = new FormControl('', [Validators.required, CustomValidators.onlyNumbersValidation]);
 
-  private lengthValidation = (control: AbstractControl): ValidationErrors => {
-    if (isNaN(Number(control.value))) return { length: 'Must be only numbers' };
-    return null;
-  }
+  public onChange: any = () => {};
+  public onTouched: any = () => {};
 
-  public lengthControl = new FormControl('', [Validators.required, this.lengthValidation]);
-
-  get value() {
+  public get value(): number {
     return this.lengthControl.value;
   }
 
-  set value(value) {
+  public set value(value) {
     this.lengthControl.setValue(value);
     this.onChange(value);
     this.onTouched();
   }
 
-  registerOnChange(fn) {
+  public registerOnChange(fn): void {
     this.onChange = fn;
   }
 
-  writeValue(value) {
-    if (value) this.lengthControl.setValue(value);
+  public writeValue(value): void {
+    if (value) {
+      this.lengthControl.setValue(value);
+    }
   }
 
-  registerOnTouched(fn) {
+  public registerOnTouched(fn): void {
     this.onTouched = fn;
   }
 

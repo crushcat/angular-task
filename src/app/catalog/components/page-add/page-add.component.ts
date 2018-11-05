@@ -21,12 +21,12 @@ enum Course {
 export class PageAddComponent {
   public course = {...Course};
 
-  save(newCourse: ICourse) {
+  public save(newCourse: ICourse): void {
     this.store.dispatch(new AddCourseAction({newCourse}));
     this.back();
   }
 
-  back() {
+  public back(): void {
     this.location.back();
   }
 

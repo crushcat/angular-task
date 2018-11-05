@@ -6,11 +6,12 @@
           <li (click)="delete(item)" *ngFor="let item of choosedAuthors">{{item.name}}</li>
         </ul>
         <input 
-        class="input"
-        [formControl]="authorsControl"
-        type="text"
-        name="authors"
-        maxlength="30">
+          class="input"
+          [formControl]="authorsControl"
+          type="text"
+          name="authors"
+          maxlength="30"
+        >
     </div>
     <div 
       class="validation-block" 

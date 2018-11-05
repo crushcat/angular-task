@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
-import { ICourse } from '../../interfaces'
+import { ICourse } from '../../interfaces';
 
 @Component({
   selector: 'at-item',
@@ -12,11 +12,11 @@ export class ItemComponent {
   @Output() editCourseEvent: EventEmitter<number> = new EventEmitter();
   @Output() deleteCourseEvent: EventEmitter<number> = new EventEmitter();
 
-  save() {
+  public save(): void {
     this.editCourseEvent.emit(this.course.id);
   }
 
-  delete() {
+  public delete(): void {
     this.deleteCourseEvent.emit(this.course.id);
   }
 

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ICourse } from '../../interfaces';
 import { FormGroup, FormControl, FormBuilder, ValidationErrors, Validators, AbstractControl} from '@angular/forms';
+import { CustomValidators } from '../../utils/validator';
 
 @Component({
   selector: 'at-item-form',
@@ -11,35 +12,28 @@ export class ItemFormComponent implements OnInit {
   @Input() course: ICourse;
   @Output() courseEventSave: EventEmitter<ICourse> = new EventEmitter();
   @Output() courseEventCancel: EventEmitter<any> = new EventEmitter();
-  public itemForm: FormGroup;
-
-  private titleValidation = (control: AbstractControl): ValidationErrors => {
-    if (control.value.length > 50) return { title: 'Max length 50 symbols' };
-    return null;
-  }
-
-  private descriptionValidation = (control: AbstractControl): ValidationErrors => {
-    if (control.value.length > 500) return { description: 'Max length 500 symbols' };
-    return null;
-  }
-
-  get controls() { return this.itemForm.controls; }
-
-  public titleControl = new FormControl('', [Validators.required, this.titleValidation]);
-  public descriptionControl = new FormControl('', [Validators.required, this.descriptionValidation]);
+  public descriptionMaxLength = 500;
+  public titleMaxLength = 50;
+  public titleControl = new FormControl('', [Validators.required, CustomValidators.maxLengthValidation(this.titleMaxLength)]);
+  public descriptionControl = new FormControl('', [Validators.required, CustomValidators.maxLengthValidation(this.descriptionMaxLength)]);
   public dateControl = new FormControl('', [Validators.required]);
   public lengthControl = new FormControl('', [Validators.required]);
   public authorsControl = new FormControl('', [Validators.required]);
+  public itemForm: FormGroup;
 
-  save() {
+  public get controls(): {[key: string]: AbstractControl} {
+    return this.itemForm.controls;
+  }
+
+  public save(): void {
     this.courseEventSave.emit(this.course);
   }
 
-  cancel() {
+  public cancel(): void {
     this.courseEventCancel.emit();
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.itemForm = this.fb.group({
       title: this.titleControl,
       description: this.descriptionControl,
@@ -60,7 +54,7 @@ export class ItemFormComponent implements OnInit {
       this.course.date = new Date(Date.parse(this.itemForm.value.date));
       this.course.length = this.itemForm.value.length;
       this.course.authors = this.itemForm.value.authors;
-    })
+    });
   }
 
   constructor(private fb: FormBuilder) { }

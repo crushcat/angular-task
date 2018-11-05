@@ -5,6 +5,7 @@ import { Subscription, Subject } from 'rxjs';
 import { FetchAuthorsAction } from '../../state/actions';
 import { debounceTime } from 'rxjs/operators';
 import { IAuthor } from '../../interfaces/authors.model';
+import { IAppState } from 'src/app/app.state';
 
 export const FORM_AUTHORS_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -19,58 +20,62 @@ export const FORM_AUTHORS_VALUE_ACCESSOR: any = {
   providers: [FORM_AUTHORS_VALUE_ACCESSOR]
 })
 export class FormAuthorsComponent implements ControlValueAccessor, OnDestroy {
-  onChange: any = () => {};
-  onTouched: any = () => {};
-  public $searchSubject: Subject<string> = new Subject();
-  public choosedAuthors = [];
+  public searchSubject$ = new Subject();
+  public choosedAuthors: IAuthor[] = [];
   public authorsSub: Subscription;
   public authorsList: IAuthor[] = [];
   public authorsControl = new FormControl('');
+  public debounceTime = 1000;
 
-  add(value) {
+  public onChange: any = () => {};
+  public onTouched: any = () => {};
+
+  public add(value): void {
     const result = this.choosedAuthors.filter((author) => {
-      return author.name == value.name;
-    }) // Is there the same author in array
+      return author.name === value.name;
+    });
     if (!result.length) {
-      this.choosedAuthors = [...this.choosedAuthors, value]; // if not
-      this.onChange(this.choosedAuthors); 
+      this.choosedAuthors = [...this.choosedAuthors, value];
+      this.onChange(this.choosedAuthors);
     }
   }
 
-  delete(item: string) {
+  public delete(item: string): void {
     this.choosedAuthors = this.choosedAuthors.filter((author) => {
-      return author != item;
-    })
+      return author.name !== item;
+    });
     this.onChange(this.choosedAuthors);
   }
 
-  registerOnChange(fn) {
+  public registerOnChange(fn): void {
     this.onChange = fn;
   }
 
-  writeValue(value) {
-    if (value) this.choosedAuthors = [...value];
+  public writeValue(value): void {
+    if (value) {
+      this.choosedAuthors = [...value];
+    }
   }
 
-  registerOnTouched(fn) {
+  public registerOnTouched(fn): void {
     this.onTouched = fn;
   }
 
-  get value() {
+  public get value(): IAuthor[] {
     return this.choosedAuthors;
   }
 
-  set value(value) {
+  public set value(value) {
     this.onChange(value);
     this.onTouched();
   }
 
-  ngOnDestroy() {
-    this.$searchSubject.unsubscribe();
+  ngOnDestroy(): void {
+    this.searchSubject$.unsubscribe();
     this.authorsSub.unsubscribe();
   }
 
-  constructor(private store: Store<any>) {
+  constructor(private store: Store<IAppState>) {
 
     this.authorsSub = this.store
         .select((state) => state.course.authors)
@@ -78,15 +83,17 @@ export class FormAuthorsComponent implements ControlValueAccessor, OnDestroy {
           this.authorsList = authors;
         });
 
-    this.$searchSubject
-        .pipe(debounceTime(1000))
-        .subscribe((textFragment) => {
+    this.searchSubject$
+        .pipe(debounceTime(this.debounceTime))
+        .subscribe((textFragment: string) => {
           this.store.dispatch(new FetchAuthorsAction({textFragment}));
         });
 
     this.authorsControl.valueChanges.subscribe(textFragment => {
-      if(textFragment.length) this.$searchSubject.next(textFragment);
-    });    
+      if (textFragment.length) {
+        this.searchSubject$.next(textFragment);
+      }
+    });
   }
 
 }

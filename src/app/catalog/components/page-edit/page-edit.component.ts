@@ -12,21 +12,21 @@ import { PatchCourseAction, LoadCourseByIdAction } from '../../state/actions';
   templateUrl: './page-edit.component.html',
   styleUrls: ['./page-edit.component.scss']
 })
-export class PageEditComponent implements OnDestroy { 
+export class PageEditComponent implements OnDestroy {
   public courseSub: Subscription;
   public course: ICourse;
   public title: string;
 
-  save(course) {
+  public save(course): void {
     this.store.dispatch(new PatchCourseAction({course}));
     this.back();
   }
 
-  back() {
+  public back(): void {
     this.location.back();
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.courseSub.unsubscribe();
   }
 
@@ -34,17 +34,16 @@ export class PageEditComponent implements OnDestroy {
     private store: Store<IAppState>,
     private router: ActivatedRoute,
     private location: Location,
-    ) { 
-
+    ) {
       this.router.params.subscribe(({id}) => {
         this.store.dispatch(new LoadCourseByIdAction({id}));
       });
       this.courseSub = this.store.select(state => state.course.course)
                 .subscribe((course) => {
-                  if(course) {
+                  if (course) {
                     this.title = `${this.location.path().split('/')[1]}/${course.name}`;
                     this.course = course;
                   }
-                })
+                });
     }
 }

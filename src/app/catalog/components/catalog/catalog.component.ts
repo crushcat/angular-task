@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ICourse } from '../../interfaces';
 import { SearchPipe } from '../../pipes/search/search.pipe';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { LoadCourseAction, DeleteCourseAction } from '../../state/actions';
@@ -17,39 +17,39 @@ import { IAppState } from 'src/app/app.state';
 export class CatalogComponent implements OnInit, OnDestroy {
   public coursesListSub: Subscription;
   public courseList: ICourse[] = [];
-  public backupList: ICourse[];
   public title: string;
-  public pageNumbers: number = 1;
+  public pageNumbers = 1;
 
-  loadMore() {
+  public loadMore(): void {
     this.pageNumbers++;
     this.loadCourses();
   }
 
-  editCourse(courseId: number) {
+  public editCourse(courseId: number): void {
     this.router.navigateByUrl(`catalog/${courseId}`);
   }
 
-  deleteCourse(id: number) {
-    const result: boolean = window.confirm("Are you sure?");
-    if(result) this.store.dispatch(new DeleteCourseAction({id}));
+  public deleteCourse(id: number): void {
+    const result: boolean = window.confirm('Are you sure?');
+    if (result) {
+      this.store.dispatch(new DeleteCourseAction({id}));
+    }
   }
 
-  search(textFragment: string) {
-    if(!textFragment) this.courseList = [...this.backupList];
+  public search(textFragment: string): void {
     this.loadCourses(textFragment);
   }
 
-  loadCourses(textFragment?: string) {
+  public loadCourses(textFragment?: string): void {
     const { pageNumbers } = this;
     this.store.dispatch(new LoadCourseAction({pageNumbers, textFragment}));
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.loadCourses();
   }
-  
-  ngOnDestroy() {
+
+  public ngOnDestroy(): void {
     this.coursesListSub.unsubscribe();
   }
 
@@ -57,13 +57,12 @@ export class CatalogComponent implements OnInit, OnDestroy {
     private store: Store<IAppState>,
     private router: Router,
     private location: Location
-    ) { 
-      this.title = this.location.path().split('/')[1]; // take url for title
+    ) {
+      this.title = this.location.path().split('/')[1];
       this.coursesListSub = this.store
       .select(state => state.course.courses)
       .subscribe((newCoursesList) => {
         this.courseList = newCoursesList;
-        this.backupList = [...this.courseList];
-      })
+      });
     }
 }
