@@ -9,7 +9,7 @@ import { AuthService } from '../../services/authService/auth.service';
 export class HeaderComponent {
   constructor(private authService: AuthService) { }
 
-  isAuth(): boolean {
+  public isAuth(): boolean {
     return this.authService.IsAuthenticated();
   }
 }

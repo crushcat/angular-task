@@ -11,15 +11,15 @@ import { IAppState } from 'src/app/app.state';
   styleUrls: ['./session.component.scss']
 })
 export class SessionComponent implements OnInit, OnDestroy {
-  userInfoSub: Subscription;
-  username: string;
+  public userInfoSub: Subscription;
+  public username: string;
 
   constructor(
     private authService: AuthService,
     private store: Store<IAppState>
-  ) {}
+  ) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.userInfoSub = this.authService
                            .getUserInfo()
                            .subscribe((data) => {
@@ -27,11 +27,11 @@ export class SessionComponent implements OnInit, OnDestroy {
                            });
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.userInfoSub.unsubscribe();
   }
 
-  logout() {
+  public logout(): void {
     this.store.dispatch(new LogoutAction());
   }
 }

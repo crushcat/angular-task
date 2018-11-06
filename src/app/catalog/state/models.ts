@@ -8,4 +8,3 @@ export interface ICourseState {
     course: ICourse;
     error: HttpErrorResponse;
 }
-

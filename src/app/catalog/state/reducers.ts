@@ -6,8 +6,8 @@ const defaultState = {
     error: '',
 };
 
-export function CourseReducer(state = defaultState, action: Actions): any {
-    switch (action.type) {  
+export function CourseReducer(state = defaultState, action: Actions) {
+    switch (action.type) {
         case COURSE_ACTIONS.STORE_COURSES:
             return {
                 ...state,
@@ -27,7 +27,7 @@ export function CourseReducer(state = defaultState, action: Actions): any {
             return {
                 ...state,
                 error: '',
-            }
+            };
         default:
             return state;
     }

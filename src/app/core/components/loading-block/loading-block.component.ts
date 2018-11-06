@@ -11,7 +11,8 @@ export class LoadingBlockComponent implements OnDestroy {
   public isLoadingSub: Subscription;
   public isLoading = false;
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
+    this.isLoadingSub.unsubscribe();
   }
 
   constructor(private loadingService: LoadingService) {

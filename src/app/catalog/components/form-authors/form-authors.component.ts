@@ -27,56 +27,7 @@ export class FormAuthorsComponent implements ControlValueAccessor, OnDestroy {
   public authorsControl = new FormControl('');
   public debounceTime = 1000;
 
-  public onChange: any = () => {};
-  public onTouched: any = () => {};
-
-  public add(value): void {
-    const result = this.choosedAuthors.filter((author) => {
-      return author.name === value.name;
-    });
-    if (!result.length) {
-      this.choosedAuthors = [...this.choosedAuthors, value];
-      this.onChange(this.choosedAuthors);
-    }
-  }
-
-  public delete(item: string): void {
-    this.choosedAuthors = this.choosedAuthors.filter((author) => {
-      return author.name !== item;
-    });
-    this.onChange(this.choosedAuthors);
-  }
-
-  public registerOnChange(fn): void {
-    this.onChange = fn;
-  }
-
-  public writeValue(value): void {
-    if (value) {
-      this.choosedAuthors = [...value];
-    }
-  }
-
-  public registerOnTouched(fn): void {
-    this.onTouched = fn;
-  }
-
-  public get value(): IAuthor[] {
-    return this.choosedAuthors;
-  }
-
-  public set value(value) {
-    this.onChange(value);
-    this.onTouched();
-  }
-
-  ngOnDestroy(): void {
-    this.searchSubject$.unsubscribe();
-    this.authorsSub.unsubscribe();
-  }
-
   constructor(private store: Store<IAppState>) {
-
     this.authorsSub = this.store
         .select((state) => state.course.authors)
         .subscribe((authors) => {
@@ -96,4 +47,51 @@ export class FormAuthorsComponent implements ControlValueAccessor, OnDestroy {
     });
   }
 
+  public ngOnDestroy(): void {
+    this.searchSubject$.unsubscribe();
+    this.authorsSub.unsubscribe();
+  }
+
+  public onChange: any = () => {};
+  public onTouched: any = () => {};
+
+  public get value(): IAuthor[] {
+    return this.choosedAuthors;
+  }
+
+  public set value(value) {
+    this.onChange(value);
+    this.onTouched();
+  }
+
+  public add(value): void {
+    const result = this.choosedAuthors.filter((author) => {
+      return author.name === value.name;
+    });
+    if (!result.length) {
+      this.choosedAuthors = [...this.choosedAuthors, value];
+      this.onChange(this.choosedAuthors);
+    }
+  }
+
+  public delete(item: IAuthor): void {
+    this.choosedAuthors = this.choosedAuthors.filter((author) => {
+      return author.name !== item.name;
+    });
+    this.onChange(this.choosedAuthors);
+  }
+
+  public registerOnChange(fn): void {
+    this.onChange = fn;
+  }
+
+  public writeValue(value): void {
+    if (value) {
+      this.choosedAuthors = [...value];
+    }
+  }
+
+  public registerOnTouched(fn): void {
+    this.onTouched = fn;
+  }
 }
