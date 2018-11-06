@@ -6,10 +6,10 @@ import { AuthService } from '../../services/authService/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent { 
+export class HeaderComponent {
+  constructor(private authService: AuthService) { }
+
   isAuth(): boolean {
     return this.authService.IsAuthenticated();
   }
-  
-  constructor(private authService: AuthService) {}
 }

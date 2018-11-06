@@ -17,9 +17,6 @@ export const FORM_DURATION_VALUE_ACCESSOR: any = {
 export class FormDurationComponent implements ControlValueAccessor {
   public lengthControl = new FormControl('', [Validators.required, CustomValidators.onlyNumbersValidation]);
 
-  public onChange: any = () => {};
-  public onTouched: any = () => {};
-
   public get value(): number {
     return this.lengthControl.value;
   }
@@ -29,6 +26,9 @@ export class FormDurationComponent implements ControlValueAccessor {
     this.onChange(value);
     this.onTouched();
   }
+
+  public onChange: any = () => {};
+  public onTouched: any = () => {};
 
   public registerOnChange(fn): void {
     this.onChange = fn;

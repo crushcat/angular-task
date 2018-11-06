@@ -25,15 +25,21 @@ export class ItemFormComponent implements OnInit {
     return this.itemForm.controls;
   }
 
-  public save(): void {
-    this.courseEventSave.emit(this.course);
-  }
-
-  public cancel(): void {
-    this.courseEventCancel.emit();
-  }
+  constructor(private fb: FormBuilder) { }
 
   public ngOnInit(): void {
+    this.buildForm();
+
+    this.itemForm.valueChanges.subscribe(() => {
+      this.course.name = this.itemForm.value.title;
+      this.course.description = this.itemForm.value.description;
+      this.course.date = new Date(Date.parse(this.itemForm.value.date));
+      this.course.length = this.itemForm.value.length;
+      this.course.authors = this.itemForm.value.authors;
+    });
+  }
+
+  public buildForm() {
     this.itemForm = this.fb.group({
       title: this.titleControl,
       description: this.descriptionControl,
@@ -47,15 +53,13 @@ export class ItemFormComponent implements OnInit {
     this.dateControl.setValue(this.course.date);
     this.lengthControl.setValue(this.course.length);
     this.authorsControl.setValue(this.course.authors);
-
-    this.itemForm.valueChanges.subscribe(() => {
-      this.course.name = this.itemForm.value.title;
-      this.course.description = this.itemForm.value.description;
-      this.course.date = new Date(Date.parse(this.itemForm.value.date));
-      this.course.length = this.itemForm.value.length;
-      this.course.authors = this.itemForm.value.authors;
-    });
   }
 
-  constructor(private fb: FormBuilder) { }
+  public save(): void {
+    this.courseEventSave.emit(this.course);
+  }
+
+  public cancel(): void {
+    this.courseEventCancel.emit();
+  }
 }

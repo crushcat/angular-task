@@ -14,15 +14,6 @@ export class LoginComponent {
   public loginControl = new FormControl('', [Validators.required]);
   public passwordControl = new FormControl('', [Validators.required]);
 
-  public auth(): void {
-    const { login, password } = this.authForm.value;
-    this.store.dispatch(new AuthAction({login, password}));
-  }
-
-  public get controls(): {[key: string]: AbstractControl} {
-    return this.authForm.controls;
-  }
-
   constructor(
     private store: Store<IAuthState>,
     private fb: FormBuilder
@@ -31,5 +22,14 @@ export class LoginComponent {
       login: this.loginControl,
       password: this.passwordControl
     });
+  }
+
+  public get controls(): {[key: string]: AbstractControl} {
+    return this.authForm.controls;
+  }
+
+  public auth(): void {
+    const { login, password } = this.authForm.value;
+    this.store.dispatch(new AuthAction({login, password}));
   }
 }

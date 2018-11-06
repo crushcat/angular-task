@@ -21,6 +21,11 @@ enum Course {
 export class PageAddComponent {
   public course = {...Course};
 
+  constructor(
+    private store: Store<IAppState>,
+    private location: Location
+  ) { }
+
   public save(newCourse: ICourse): void {
     this.store.dispatch(new AddCourseAction({newCourse}));
     this.back();
@@ -29,9 +34,4 @@ export class PageAddComponent {
   public back(): void {
     this.location.back();
   }
-
-  constructor(
-    private store: Store<IAppState>,
-    private location: Location
-    ) { }
 }

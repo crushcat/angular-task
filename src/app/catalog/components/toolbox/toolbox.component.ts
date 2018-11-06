@@ -15,16 +15,6 @@ export class ToolboxComponent {
   public searchSubject$: Subject<string> = new Subject();
   public searchControl = new FormControl('', CustomValidators.minLengthValidation(3));
 
-  public search(value): void {
-    if (this.searchControl.valid) {
-      this.searchSubject$.next(value);
-   }
-  }
-
-  public addCourse(): void {
-    this.router.navigateByUrl('catalog/add');
-  }
-
   constructor(private router: Router) {
     this.searchSubject$
     .pipe(debounceTime(1000))
@@ -37,4 +27,13 @@ export class ToolboxComponent {
     });
   }
 
+  public search(value): void {
+    if (this.searchControl.valid) {
+      this.searchSubject$.next(value);
+   }
+  }
+
+  public addCourse(): void {
+    this.router.navigateByUrl('catalog/add');
+  }
 }

@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 })
 export class LoadingBlockComponent implements OnDestroy {
   public isLoadingSub: Subscription;
-  public isLoading: boolean = false;
+  public isLoading = false;
 
   ngOnDestroy() {
   }

@@ -17,19 +17,6 @@ export class PageEditComponent implements OnDestroy {
   public course: ICourse;
   public title: string;
 
-  public save(course): void {
-    this.store.dispatch(new PatchCourseAction({course}));
-    this.back();
-  }
-
-  public back(): void {
-    this.location.back();
-  }
-
-  public ngOnDestroy(): void {
-    this.courseSub.unsubscribe();
-  }
-
   constructor(
     private store: Store<IAppState>,
     private router: ActivatedRoute,
@@ -46,4 +33,17 @@ export class PageEditComponent implements OnDestroy {
                   }
                 });
     }
+
+  public ngOnDestroy(): void {
+    this.courseSub.unsubscribe();
+  }
+
+  public save(course): void {
+    this.store.dispatch(new PatchCourseAction({course}));
+    this.back();
+  }
+
+  public back(): void {
+    this.location.back();
+  }
 }

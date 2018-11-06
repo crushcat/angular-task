@@ -20,6 +20,27 @@ export class CatalogComponent implements OnInit, OnDestroy {
   public title: string;
   public pageNumbers = 1;
 
+  constructor(
+    private store: Store<IAppState>,
+    private router: Router,
+    private location: Location
+  ) {
+      this.title = this.location.path().split('/')[1];
+      this.coursesListSub = this.store
+      .select(state => state.course.courses)
+      .subscribe((newCoursesList) => {
+        this.courseList = newCoursesList;
+      });
+    }
+
+  public ngOnInit(): void {
+    this.loadCourses();
+  }
+
+  public ngOnDestroy(): void {
+    this.coursesListSub.unsubscribe();
+  }
+
   public loadMore(): void {
     this.pageNumbers++;
     this.loadCourses();
@@ -44,25 +65,4 @@ export class CatalogComponent implements OnInit, OnDestroy {
     const { pageNumbers } = this;
     this.store.dispatch(new LoadCourseAction({pageNumbers, textFragment}));
   }
-
-  public ngOnInit(): void {
-    this.loadCourses();
-  }
-
-  public ngOnDestroy(): void {
-    this.coursesListSub.unsubscribe();
-  }
-
-  constructor(
-    private store: Store<IAppState>,
-    private router: Router,
-    private location: Location
-    ) {
-      this.title = this.location.path().split('/')[1];
-      this.coursesListSub = this.store
-      .select(state => state.course.courses)
-      .subscribe((newCoursesList) => {
-        this.courseList = newCoursesList;
-      });
-    }
 }

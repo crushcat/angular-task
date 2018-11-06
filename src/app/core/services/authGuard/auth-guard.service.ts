@@ -10,6 +10,7 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthGuardService implements CanActivate {
+  constructor(private authService: AuthService, private router: Router) { }
 
   public canActivate(): Observable<boolean> {
     if (!this.authService.IsAuthenticated()) {
@@ -18,6 +19,4 @@ export class AuthGuardService implements CanActivate {
     }
     return of(true);
   }
-
-  constructor(private authService: AuthService, private router: Router) {}
 }

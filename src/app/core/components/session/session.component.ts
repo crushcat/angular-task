@@ -14,6 +14,11 @@ export class SessionComponent implements OnInit, OnDestroy {
   userInfoSub: Subscription;
   username: string;
 
+  constructor(
+    private authService: AuthService,
+    private store: Store<IAppState>
+  ) {}
+
   ngOnInit() {
     this.userInfoSub = this.authService
                            .getUserInfo()
@@ -22,16 +27,11 @@ export class SessionComponent implements OnInit, OnDestroy {
                            });
   }
 
-  logout() {
-    this.store.dispatch(new LogoutAction());
-  }
-
   ngOnDestroy() {
     this.userInfoSub.unsubscribe();
   }
 
-  constructor(
-    private authService: AuthService,
-    private store: Store<IAppState>
-  ) {}
+  logout() {
+    this.store.dispatch(new LogoutAction());
+  }
 }
