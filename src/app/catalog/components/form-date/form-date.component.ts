@@ -20,11 +20,11 @@ export class FormDateComponent implements ControlValueAccessor {
   public onChange: any = () => {};
   public onTouched: any = () => {};
 
-  get value(): string {
+  public get value(): string {
     return this.dateControl.value;
   }
 
-  set value(value) {
+  public set value(value) {
     this.dateControl.setValue(value);
     this.onChange(value);
     this.onTouched();
